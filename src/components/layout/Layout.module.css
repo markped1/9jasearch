@@ -2,8 +2,8 @@
     background-color: #ffffff;
     border-bottom: 2px solid #e0e0e0;
     width: 100%;
-    height: 120px;
-    /* Reduced from 150px for 100% zoom fit */
+    height: 90px;
+    /* Reduced from 120px for scaled look */
     display: flex;
     align-items: center;
     position: fixed;
@@ -34,15 +34,15 @@
     width: auto;
     height: 100%;
     object-fit: contain;
-    transform: scale(1.8);
-    /* Reduced from 2.2 for 100% zoom fit */
+    transform: scale(1.4);
+    /* Reduced from 1.8 for scaled look */
     transform-origin: left center;
 }
 
 .rightSide {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 22px;
 }
 
 .loginLink {
@@ -126,10 +126,10 @@
 .addBizBtn {
     background-color: var(--primary-color);
     color: white;
-    padding: 12px 28px;
+    padding: 10px 22px;
     border-radius: 8px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 15px;
     transition: background 0.2s;
     text-decoration: none;
 }

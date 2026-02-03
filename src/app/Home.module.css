@@ -2,8 +2,8 @@
     position: relative;
     background: linear-gradient(135deg, #008751 0%, #004d2e 100%);
     color: white;
-    padding: 200px 0 100px;
-    /* Reduced from 250px to fit 120px fixed header */
+    padding: 150px 0 75px;
+    /* Reduced from 200px for scaled look */
     text-align: center;
     overflow: hidden;
 }
@@ -31,11 +31,11 @@
 }
 
 .heroTitle {
-    font-size: 48px;
-    /* Reduced from 56px */
+    font-size: 36px;
+    /* Reduced from 48px */
     font-weight: 800;
     margin-bottom: 20px;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -1px;
 }
 
@@ -44,26 +44,27 @@
 }
 
 .heroSubtitle {
-    font-size: 20px;
-    margin-bottom: 50px;
+    font-size: 16px;
+    /* Reduced from 20px */
+    margin-bottom: 40px;
     opacity: 0.95;
     font-weight: 300;
-    max-width: 700px;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .searchContainer {
     background: white;
-    padding: 15px;
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     display: flex;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     transition: transform 0.3s ease;
 }
@@ -89,8 +90,8 @@
 .inputGroup input {
     width: 100%;
     border: none;
-    font-size: 20px;
-    padding: 15px 0;
+    font-size: 16px;
+    padding: 12px 0;
     outline: none;
     font-family: inherit;
     color: #000;
@@ -143,9 +144,9 @@
 }
 
 .searchBtn {
-    padding: 15px 50px;
+    padding: 12px 36px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 16px;
     flex-shrink: 0;
     border: none;
     background: #008751;
@@ -163,11 +164,11 @@
 
 .sectionTitle {
     text-align: center;
-    font-size: 36px;
-    /* Reduced from 48px */
+    font-size: 28px;
+    /* Reduced from 36px */
     font-weight: 800;
     color: #008751;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-transform: uppercase;
 }
 
