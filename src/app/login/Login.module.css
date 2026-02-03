@@ -1,0 +1,227 @@
+.pageContainer {
+    min-height: calc(100vh - 80px);
+    /* Adjust for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0fdf4;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.loginCard {
+    background: white;
+    width: 100%;
+    max-width: 480px;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 25px 50px -12px rgba(0, 135, 81, 0.15);
+    position: relative;
+    z-index: 10;
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #008751;
+    margin-bottom: 20px;
+}
+
+.logo span {
+    color: #333;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 16px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputGroup label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inputGroup input {
+    padding: 16px 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 14px;
+    font-size: 16px;
+    background: #fcfcfc;
+    transition: all 0.2s;
+}
+
+.inputGroup input:focus {
+    outline: none;
+    border-color: #008751;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 135, 81, 0.05);
+}
+
+.loginBtn {
+    background: #008751;
+    color: white;
+    padding: 18px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.loginBtn:hover {
+    background: #006039;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 135, 81, 0.2);
+}
+
+.loginBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.errorAlert {
+    background: #fef2f2;
+    color: #991b1b;
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #fecaca;
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #666;
+}
+
+.footer a {
+    color: #008751;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Background Decoration */
+.bgDecoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.circle1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(0, 135, 81, 0.05);
+    border-radius: 50%;
+    top: -200px;
+    left: -200px;
+}
+
+.circle2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 50%;
+    bottom: -150px;
+    right: -150px;
+}
+
+@media (max-width: 600px) {
+    .loginCard {
+        padding: 40px 30px;
+        border-radius: 20px;
+    }
+}

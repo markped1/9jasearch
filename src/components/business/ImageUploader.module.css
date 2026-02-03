@@ -1,0 +1,124 @@
+.container {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.count {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    background: #f3f4f6;
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.imageCard {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #e5e7eb;
+    transition: all 0.2s;
+}
+
+.imageCard:hover {
+    border-color: #008751;
+    box-shadow: 0 4px 12px rgba(0, 135, 81, 0.1);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.removeBtn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #dc2626;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.removeBtn:hover {
+    background: #dc2626;
+    color: white;
+    transform: scale(1.1);
+}
+
+.uploadBtn {
+    aspect-ratio: 1;
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.uploadBtn:hover {
+    border-color: #008751;
+    background: #f0fdf4;
+    color: #008751;
+    transform: translateY(-2px);
+}
+
+.maxReached {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+    }
+}

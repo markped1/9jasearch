@@ -1,0 +1,227 @@
+.pageContainer {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0fdf4;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.regCard {
+    background: white;
+    width: 100%;
+    max-width: 520px;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 25px 50px -12px rgba(0, 135, 81, 0.15);
+    position: relative;
+    z-index: 10;
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #008751;
+    margin-bottom: 20px;
+}
+
+.logo span {
+    color: #333;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 16px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputGroup label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inputGroup input,
+.select {
+    padding: 14px 18px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    font-size: 16px;
+    background: #fcfcfc;
+    transition: all 0.2s;
+}
+
+.inputGroup input:focus,
+.select:focus {
+    outline: none;
+    border-color: #008751;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 135, 81, 0.05);
+}
+
+.select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+}
+
+.regBtn {
+    background: #008751;
+    color: white;
+    padding: 18px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.regBtn:hover {
+    background: #006039;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 135, 81, 0.2);
+}
+
+.regBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.errorAlert {
+    background: #fef2f2;
+    color: #991b1b;
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #fecaca;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #666;
+}
+
+.footer a {
+    color: #008751;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.trustBanner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    padding: 15px 20px;
+    background: #f0fdf4;
+    border-radius: 16px;
+    color: #166534;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Background Decoration */
+.bgDecoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.shape1 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(135deg, rgba(0, 135, 81, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    top: -200px;
+    right: -200px;
+    animation: blob 20s infinite alternate;
+}
+
+.shape2 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(0, 135, 81, 0.05) 100%);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    bottom: -150px;
+    left: -100px;
+    animation: blob 25s infinite alternate-reverse;
+}
+
+@keyframes blob {
+    from {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+
+    to {
+        border-radius: 70% 30% 30% 70% / 70% 60% 40% 30%;
+    }
+}
+
+@media (max-width: 600px) {
+    .regCard {
+        padding: 40px 25px;
+    }
+}

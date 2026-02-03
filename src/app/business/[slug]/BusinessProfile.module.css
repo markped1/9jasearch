@@ -1,0 +1,172 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Banner Section */
+.banner {
+    height: 350px;
+    background-color: #e0e0e0;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 40px;
+}
+
+.bannerOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 40px;
+    border-radius: 0 0 20px 20px;
+    color: white;
+}
+
+.businessName {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.badge {
+    background-color: #008751;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 16px;
+    color: #f0f0f0;
+}
+
+/* Layout Grid */
+.contentGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+/* Main Content */
+.sectionTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 40px;
+}
+
+.reviewsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.reviewCard {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.reviewHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reviewerName {
+    font-weight: 700;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contactCard {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.actionBtn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+.actionBtn:hover {
+    transform: translateY(-2px);
+}
+
+.callBtn {
+    background-color: #008751;
+    color: white;
+}
+
+.whatsappBtn {
+    background-color: #25D366;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .banner {
+        height: 250px;
+    }
+
+    .businessName {
+        font-size: 32px;
+    }
+}

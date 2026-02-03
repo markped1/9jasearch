@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  name          String?
+  image         String?
+  role          String    @default("USER") // USER, ADMIN, BUSINESS
+  accounts      Account[]
+  sessions      Session[]
+  reviews       Review[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  conversations Conversation[] @relation("UserConversations")
+  appointments  Appointment[]
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  category    String
+  description String?
+  email       String
+  phone       String
+  website     String?
+  whatsapp    String?
+  address     String
+  city        String
+  state       String
+  lat         Float?
+  lng         Float?
+  isVerified  Boolean  @default(false)
+  isActive    Boolean  @default(false) 
+  status      String   @default("PENDING_OTP") // PENDING_OTP, PENDING_APPROVAL, APPROVED, REJECTED, SUSPENDED
+  tier        String   @default("FREE") 
+  isFeatured  Boolean  @default(false)
+  sponsoredUntil DateTime?
+  openingTime String?
+  closingTime String?
+  tags        String?  // JSON string e.g. ["Delivery", "In-store"]
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+  images      String?  // JSON array of image URLs
+  logo        String?
+  coverImage  String?
+  ownerId     String?
+  reviews     Review[]
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  
+  // Subscription
+  subscriptionExpiry DateTime?
+  payments           Payment[]
+  conversations      Conversation[]
+  offers             Offer[]
+  appointments       Appointment[]
+  services           ServiceItem[]
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  reference     String   @unique
+  amount        Float
+  status        String   // success, pending, failed
+  plan          String   // GOLD, PLATINUM
+  email         String
+  businessId    String
+  business      Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  target    String   // email or phone number
+  token     String
+  type      String   // EMAIL or MOBILE
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([target, token])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  businessId String
+  status     String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  documents  String?  // JSON string (URLs to images)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  businessId String
+  eventType  String   // page_view, call_click, whatsapp_click, website_click, directions_click
+  metadata   String?  // JSON for additional data
+  createdAt  DateTime @default(now())
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    String
+  user      User     @relation("UserConversations", fields: [userId], references: [id])
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id])
+
+  messages   Message[]
+
+  @@unique([userId, businessId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  
+  content   String
+  senderId  String
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  read      Boolean  @default(false)
+}
+
+model Offer {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  title       String
+  description String
+  code        String?
+  expiresAt   DateTime?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model ServiceItem {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  name        String
+  price       Float
+  duration    Int      @default(30)
+  createdAt   DateTime @default(now())
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id])
+  date        DateTime 
+  status      String   @default("CONFIRMED") // PENDING, CONFIRMED, CANCELLED
+  serviceName String?
+  price       Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

@@ -1,0 +1,90 @@
+.reviewFormCard {
+    background: #f8faf9;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #e0f2e9;
+}
+
+.reviewFormCard h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.reviewFormCard p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.starRating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.starBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.starBtn:hover {
+    transform: scale(1.1);
+}
+
+.ratingLabel {
+    margin-left: 10px;
+    font-weight: 700;
+    color: #008751;
+    font-size: 14px;
+}
+
+.textArea {
+    width: 100%;
+    border: 2px solid #eef2f0;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background: white;
+    transition: border-color 0.2s;
+    font-family: inherit;
+    resize: none;
+}
+
+.textArea:focus {
+    outline: none;
+    border-color: #008751;
+}
+
+.submitBtn {
+    background: #008751;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    width: fit-content;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background: #006039;
+    transform: translateY(-2px);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

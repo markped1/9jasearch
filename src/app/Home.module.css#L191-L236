@@ -1,0 +1,85 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 60px;
+}
+
+.pageNumber {
+    font-size: 24px; /* Uppscaled for visibility */
+    font-weight: 700;
+    color: #008751;
+    cursor: pointer;
+    padding: 10px 18px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.pageNumber:hover {
+    background-color: #f0fdf4;
+    text-decoration: underline;
+}
+
+.activePage {
+    background-color: #008751;
+    color: white;
+    text-decoration: none !important;
+}
+
+.nextBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px; /* Upscaled */
+    font-weight: 700;
+    color: #008751;
+    background: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.nextBtn:hover {
+    text-decoration: underline;
+    background-color: #f0fdf4;
+    border-radius: 30px;
+}
+
+.pageSizeSelector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    color: #444;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.sizeOptions {
+    display: flex;
+    gap: 8px;
+}
+
+.sizeBtn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.sizeBtn:hover {
+    border-color: #008751;
+    color: #008751;
+}
+
+.activeSize {
+    background: #008751;
+    color: white;
+    border-color: #008751;
+}
