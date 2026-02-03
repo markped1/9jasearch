@@ -12,8 +12,9 @@ export default function Footer() {
                         </span>
                     </p>
                 </div>
-                <div style={{ fontSize: '0.9rem', color: '#888' }}>
-                    <span style={{ marginRight: '1rem' }}>Privacy Policy</span>
+                <div style={{ fontSize: '0.9rem', color: '#888', display: 'flex', gap: '15px', alignItems: 'center' }}>
+                    <span style={{ color: '#008751', fontWeight: 800 }}>v1.1 (Stable 50% Scale)</span>
+                    <span>Privacy Policy</span>
                     <span>Terms of Service</span>
                 </div>
             </div>
