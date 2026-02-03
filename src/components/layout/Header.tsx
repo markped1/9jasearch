@@ -42,6 +42,9 @@ export default function Header() {
                         </>
                     ) : (
                         <div className={styles.userControls}>
+                            <Link href="/" className={styles.homeLink}>
+                                <Phone size={18} /> Home
+                            </Link>
                             {/* @ts-ignore */}
                             {session.user.role === 'ADMIN' && (
                                 <Link href="/admin" className={styles.dashboardBtn}>
