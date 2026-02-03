@@ -61,7 +61,7 @@ export default function AdminDashboard() {
                             recentPayments.map((p: any) => (
                                 <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #f0f0f0', fontSize: '14px' }}>
                                     <div>
-                                        <div style={{ fontWeight: '600', color: '#333' }}>{p.business.name}</div>
+                                        <div style={{ fontWeight: '600', color: '#333' }}>{p.business?.name || 'Unknown Business'}</div>
                                         <div style={{ color: '#888', fontSize: '12px' }}>{new Date(p.createdAt).toLocaleDateString()}</div>
                                     </div>
                                     <div style={{ fontWeight: '700', color: '#008751' }}>+₦{p.amount.toLocaleString()}</div>
