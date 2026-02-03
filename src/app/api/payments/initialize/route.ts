@@ -1,7 +1,8 @@
-
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+
+export const dynamic = 'force-dynamic';
 
 // Use test secret key for development, switch to live for production
 const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY || 'sk_test_...'; // Ideally from env

@@ -1,7 +1,8 @@
-
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
+
+export const dynamic = 'force-dynamic';
 
 // GET: List all conversations for the current user (as customer or owner)
 export async function GET(request: Request) {
