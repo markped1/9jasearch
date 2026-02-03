@@ -171,7 +171,7 @@ export default function OwnerDashboard() {
                 <header className={styles.header}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                            <h1 className={styles.title}>Welcome back, {business.name}</h1>
+                            <h1 className={styles.title}>Welcome back, {business?.name || 'Partner'}</h1>
                             <p className={styles.subtitle}>Manage your business presence on Eagle Search Naija.</p>
                         </div>
 

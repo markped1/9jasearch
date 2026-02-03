@@ -56,7 +56,7 @@ export default function Header() {
                             )}
                             <div className={styles.userInfo}>
                                 <User size={18} />
-                                <span>{session.user?.name || session.user?.email}</span>
+                                <span>{session?.user?.name || session?.user?.email || 'User'}</span>
                             </div>
                             <button onClick={() => signOut()} className={styles.logoutBtn}>
                                 <LogOut size={18} /> Logout

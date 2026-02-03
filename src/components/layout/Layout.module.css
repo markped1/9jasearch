@@ -2,8 +2,8 @@
     background-color: #ffffff;
     border-bottom: 2px solid #e0e0e0;
     width: 100%;
-    height: 90px;
-    /* Reduced from 120px for scaled look */
+    height: 80px;
+    /* Reduced from 90px to further moderate the size */
     display: flex;
     align-items: center;
     position: fixed;
@@ -34,8 +34,8 @@
     width: auto;
     height: 100%;
     object-fit: contain;
-    transform: scale(1.4);
-    /* Reduced from 1.8 for scaled look */
+    transform: scale(1.1);
+    /* Reduced from 1.4 for a more moderate logo size */
     transform-origin: left center;
 }
 

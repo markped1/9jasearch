@@ -31,8 +31,8 @@
 }
 
 .heroTitle {
-    font-size: 36px;
-    /* Reduced from 48px */
+    font-size: 32px;
+    /* Further reduced from 36px for 25% total reduction */
     font-weight: 800;
     margin-bottom: 20px;
     line-height: 1.2;
@@ -44,27 +44,27 @@
 }
 
 .heroSubtitle {
-    font-size: 16px;
-    /* Reduced from 20px */
-    margin-bottom: 40px;
+    font-size: 15px;
+    /* Further reduced from 16px */
+    margin-bottom: 35px;
     opacity: 0.95;
     font-weight: 300;
-    max-width: 600px;
+    max-width: 550px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .searchContainer {
     background: white;
-    padding: 12px;
+    padding: 10px;
     border-radius: 12px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     display: flex;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     transition: transform 0.3s ease;
 }
@@ -90,8 +90,9 @@
 .inputGroup input {
     width: 100%;
     border: none;
-    font-size: 16px;
-    padding: 12px 0;
+    font-size: 14px;
+    /* Further reduced from 16px */
+    padding: 10px 0;
     outline: none;
     font-family: inherit;
     color: #000;
@@ -144,9 +145,9 @@
 }
 
 .searchBtn {
-    padding: 12px 36px;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 6px;
+    font-size: 14px;
     flex-shrink: 0;
     border: none;
     background: #008751;

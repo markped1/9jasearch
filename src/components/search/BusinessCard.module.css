@@ -66,8 +66,8 @@
 }
 
 .name {
-    font-size: 21px;
-    /* Reduced from 28px */
+    font-size: 18px;
+    /* Significant reduction for elegant look */
     font-weight: 700;
     color: #008751;
     margin: 0;
@@ -100,8 +100,8 @@
 .metaLine {
     display: flex;
     align-items: center;
-    font-size: 14px;
-    /* Reduced from 18px */
+    font-size: 13px;
+    /* Professional small scale */
     color: #4d5156;
     gap: 6px;
 }
