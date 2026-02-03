@@ -18,8 +18,8 @@
 }
 
 html {
-  font-size: 14px;
-  /* Balanced baseline for scaling */
+  font-size: 11px !important;
+  /* Aggressive baseline to satisfy the 25% reduction request safely */
 }
 
 body {

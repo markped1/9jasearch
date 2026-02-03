@@ -16,6 +16,7 @@ export async function GET() {
                 ownerId: session.user.id
             },
             include: {
+                // @ts-ignore
                 offers: true,
                 appointments: {
                     take: 5,
