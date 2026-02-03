@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { auth } from '@/auth';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const session = await auth();
+    if (!session || session.user?.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     try {
         const body = await request.json();

@@ -20,17 +20,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
 
     // Dynamic Business Routes
-    const businesses = await prisma.business.findMany({
-        select: { slug: true, updatedAt: true },
-        where: { isActive: true } // Only active
-    })
+    let businessRoutes: any[] = []
+    try {
+        const businesses = await prisma.business.findMany({
+            select: { slug: true, updatedAt: true },
+            where: { isActive: true } // Only active
+        })
 
-    const businessRoutes = businesses.map((business) => ({
-        url: `${baseUrl}/business/${business.slug}`,
-        lastModified: business.updatedAt,
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-    }))
+        businessRoutes = businesses.map((business) => ({
+            url: `${baseUrl}/business/${business.slug}`,
+            lastModified: business.updatedAt,
+            changeFrequency: 'weekly' as const,
+            priority: 0.8,
+        }))
+    } catch (error) {
+        console.error('Sitemap business fetch failed:', error)
+    }
 
     return [...routes, ...businessRoutes]
 }
