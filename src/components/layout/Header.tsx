@@ -46,13 +46,13 @@ export default function Header() {
                                 <Phone size={18} /> Home
                             </Link>
                             {/* @ts-ignore */}
-                            {session.user.role === 'ADMIN' && (
+                            {session?.user?.role === 'ADMIN' && (
                                 <Link href="/admin" className={styles.dashboardBtn}>
                                     <LayoutDashboard size={18} /> Admin Panel
                                 </Link>
                             )}
                             {/* @ts-ignore */}
-                            {session.user.role === 'BUSINESS' && (
+                            {session?.user?.role === 'BUSINESS' && (
                                 <Link href="/dashboard" className={styles.dashboardBtn}>
                                     <LayoutDashboard size={18} /> Dashboard
                                 </Link>
