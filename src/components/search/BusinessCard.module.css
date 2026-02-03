@@ -6,8 +6,8 @@
     margin-bottom: 15px;
     width: 100%;
     border-bottom: 1px solid #e0e0e0;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 8px;
+    border-radius: 8px;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -23,8 +23,8 @@
 }
 
 .imageWrapper {
-    width: 110px;
-    height: 110px;
+    width: 70px;
+    height: 70px;
     background-color: #f1f3f4;
     border-radius: 8px;
     overflow: hidden;
@@ -66,8 +66,8 @@
 }
 
 .name {
-    font-size: 18px;
-    /* Significant reduction for elegant look */
+    font-size: 14px;
+    /* Radical 50% reduction from 28px */
     font-weight: 700;
     color: #008751;
     margin: 0;
@@ -100,8 +100,8 @@
 .metaLine {
     display: flex;
     align-items: center;
-    font-size: 13px;
-    /* Professional small scale */
+    font-size: 10px;
+    /* Extra small for 50% scale */
     color: #4d5156;
     gap: 6px;
 }
@@ -128,9 +128,7 @@
 }
 
 .addressLine {
-    font-size: 14px;
-    /* Reduced from 18px */
-    color: #4d5156;
+    font-size: 11px;
 }
 
 .statusLine {

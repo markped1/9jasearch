@@ -31,12 +31,12 @@
 }
 
 .heroTitle {
-    font-size: 32px;
-    /* Further reduced from 36px for 25% total reduction */
+    font-size: 24px;
+    /* Radical reduction to 50% of original */
     font-weight: 800;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    letter-spacing: -1px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
 }
 
 .heroTitle span {
@@ -44,29 +44,38 @@
 }
 
 .heroSubtitle {
-    font-size: 15px;
-    /* Further reduced from 16px */
-    margin-bottom: 35px;
+    font-size: 11px;
+    /* Reduced to 50% of original */
+    margin-bottom: 20px;
     opacity: 0.95;
     font-weight: 300;
-    max-width: 550px;
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .searchContainer {
     background: white;
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 8px;
+    flex-wrap: nowrap;
+    /* Force no wrap, use overflow hidden */
     align-items: center;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .searchContainer {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
 }
 
 .searchContainer:focus-within {
@@ -77,10 +86,19 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 15px;
+    gap: 8px;
+    padding: 0 8px;
     border-right: 1px solid #eee;
-    min-width: 250px;
+    min-width: 0;
+    /* Allow shrinking */
+}
+
+@media (max-width: 768px) {
+    .inputGroup {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding: 5px 0;
+    }
 }
 
 .inputGroup:last-of-type {
@@ -165,11 +183,11 @@
 
 .sectionTitle {
     text-align: center;
-    font-size: 28px;
-    /* Reduced from 36px */
+    font-size: 18px;
+    /* 50% of 36px */
     font-weight: 800;
     color: #008751;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     text-transform: uppercase;
 }
 
@@ -183,14 +201,15 @@
 
 .categoryCard {
     background: white;
-    padding: 30px 20px;
-    border-radius: 16px;
+    padding: 15px 10px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     cursor: pointer;
     border: 1px solid transparent;
-    width: 220px;
+    width: 140px;
+    /* Shrunk for 50% look */
     flex-shrink: 0;
 }
 

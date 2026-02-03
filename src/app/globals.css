@@ -18,17 +18,20 @@
 }
 
 html {
-  font-size: 11px !important;
-  /* Aggressive baseline to satisfy the 25% reduction request safely */
+  font-size: 8px !important;
+  /* Radical 50% scale reduction for a professional 'small' look */
+  overflow-x: hidden;
+  width: 100vw;
 }
 
 body {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   overflow-x: hidden;
+  position: relative;
   /* Safe Area Support */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
