@@ -43,6 +43,12 @@ export default function Header() {
                     ) : (
                         <div className={styles.userControls}>
                             {/* @ts-ignore */}
+                            {session.user.role === 'ADMIN' && (
+                                <Link href="/admin" className={styles.dashboardBtn}>
+                                    <LayoutDashboard size={18} /> Admin Panel
+                                </Link>
+                            )}
+                            {/* @ts-ignore */}
                             {session.user.role === 'BUSINESS' && (
                                 <Link href="/dashboard" className={styles.dashboardBtn}>
                                     <LayoutDashboard size={18} /> Dashboard

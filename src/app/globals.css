@@ -17,7 +17,15 @@
   margin: 0;
 }
 
-html,
+html {
+  zoom: 0.75;
+  /* Reduced overall page scale by 25% as requested */
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: 0 0;
+  transform: scale(0.75);
+  transform-origin: 0 0;
+}
+
 body {
   width: 100%;
   min-height: 100vh;
@@ -25,7 +33,6 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   overflow-x: hidden;
-  font-size: 12px;
   /* Safe Area Support */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);

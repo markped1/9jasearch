@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import {
     LayoutDashboard, Building2, MessageSquare, Star,
     Settings, Globe, MapPin, Phone, Clock, Save,
-    Loader2, AlertCircle, TrendingUp, Zap, CheckCircle2, Tag, Calendar
+    Loader2, AlertCircle, TrendingUp, Zap, CheckCircle2, Tag, Calendar, User
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import ImageUploader from '@/components/business/ImageUploader';
 import styles from './Dashboard.module.css';
 
@@ -17,21 +18,27 @@ export default function OwnerDashboard() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    const { data: session } = useSession();
+
     useEffect(() => {
         const fetchBiz = async () => {
+            if (!session?.user?.id) return;
+
             try {
-                const res = await fetch('/api/businesses/search?q=Eko&limit=1');
+                // Fetch business owned by this user
+                const res = await fetch(`/api/businesses/owner`);
                 const data = await res.json();
-                if (data.length > 0) {
-                    setBusiness(data[0]);
+
+                if (data.id) {
+                    setBusiness(data);
 
                     // Handle payment success from URL
                     const urlParams = new URLSearchParams(window.location.search);
                     if (urlParams.get('payment') === 'success') {
-                        handlePaymentSuccess(data[0].id);
+                        handlePaymentSuccess(data.id);
                     }
                 } else {
-                    setError('Business not found');
+                    setError('You do not have an active business listing yet.');
                 }
             } catch (err) {
                 setError('Failed to load business data');
@@ -39,8 +46,8 @@ export default function OwnerDashboard() {
                 setLoading(false);
             }
         };
-        fetchBiz();
-    }, []);
+        if (session) fetchBiz();
+    }, [session]);
 
     const handlePaymentSuccess = async (id: string) => {
         setSuccess('Payment successful! Your business is now FEATURED.');
