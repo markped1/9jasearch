@@ -61,23 +61,31 @@ export default function EagleBot() {
             <button
                 onClick={() => setIsOpen(true)}
                 style={{
-                    position: 'fixed', bottom: '20px', right: '20px', zIndex: 9999,
+                    position: 'fixed',
+                    bottom: 'calc(70px + env(safe-area-inset-bottom))', // above mobile nav
+                    right: '16px',
+                    zIndex: 10001, // above mobile nav (10000)
                     background: 'linear-gradient(135deg, #008751 0%, #006b3f 100%)',
                     color: 'white', border: 'none', borderRadius: '50%',
-                    width: '60px', height: '60px',
+                    width: '56px', height: '56px',
                     boxShadow: '0 4px 15px rgba(0,0,0,0.3)', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}
             >
-                <Bot size={32} />
+                <Bot size={28} />
             </button>
         );
     }
 
     return (
         <div style={{
-            position: 'fixed', bottom: '20px', right: '20px', zIndex: 9999,
-            width: '350px', maxHeight: '500px', height: '80vh',
+            position: 'fixed',
+            bottom: 'calc(70px + env(safe-area-inset-bottom))', // above mobile nav
+            right: '16px',
+            zIndex: 10001,
+            width: 'min(350px, calc(100vw - 32px))', // responsive width
+            maxHeight: 'calc(100vh - 160px)',
+            height: '80vh',
             background: 'white', borderRadius: '16px',
             boxShadow: '0 5px 25px rgba(0,0,0,0.2)', border: '1px solid #eee',
             display: 'flex', flexDirection: 'column', overflow: 'hidden'

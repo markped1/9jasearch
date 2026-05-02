@@ -111,18 +111,226 @@ const KEYWORD_ALIASES: Record<string, string[]> = {
   accountant:    ['Accounting & Auditing'],
   'real estate': ['Real Estate Agents'],
   property:      ['Real Estate Agents', 'Property Developers'],
+
+  // ── Products & items people want to BUY ──────────────────────
+  // Building materials
+  cement:          ['Building Materials', 'Wholesale & Distribution'],
+  'iron rod':      ['Building Materials', 'Welding & Fabrication'],
+  'iron rods':     ['Building Materials', 'Welding & Fabrication'],
+  'reinforcement': ['Building Materials'],
+  'roofing sheet': ['Roofing Materials', 'Building Materials'],
+  'roofing sheets':['Roofing Materials', 'Building Materials'],
+  'zinc':          ['Roofing Materials', 'Building Materials'],
+  'block':         ['Block Industry', 'Building Materials'],
+  'blocks':        ['Block Industry', 'Building Materials'],
+  'sand':          ['Building Materials', 'Wholesale & Distribution'],
+  'gravel':        ['Building Materials'],
+  'granite':       ['Building Materials', 'Tiles & Flooring'],
+  'tile':          ['Tiles & Flooring', 'Building Materials'],
+  'tiles':         ['Tiles & Flooring', 'Building Materials'],
+  'paint':         ['Paints & Coatings'],
+  'paints':        ['Paints & Coatings'],
+  'plank':         ['Carpenters & Woodwork', 'Building Materials'],
+  'planks':        ['Carpenters & Woodwork', 'Building Materials'],
+  'wood':          ['Carpenters & Woodwork', 'Building Materials'],
+  'timber':        ['Carpenters & Woodwork', 'Building Materials'],
+  'pipe':          ['Plumbing Materials', 'Plumbing & Pipefitting'],
+  'pipes':         ['Plumbing Materials', 'Plumbing & Pipefitting'],
+  'wire':          ['Electrical Materials', 'Electrical Installation'],
+  'cables':        ['Electrical Materials'],
+  'door':          ['Doors & Windows', 'Building Materials'],
+  'doors':         ['Doors & Windows', 'Building Materials'],
+  'window':        ['Doors & Windows', 'Glass & Aluminium Products'],
+  'windows':       ['Doors & Windows', 'Glass & Aluminium Products'],
+  'glass':         ['Glass & Aluminium Products'],
+  'aluminium':     ['Aluminium & Steel Works', 'Glass & Aluminium Products'],
+  'toilet':        ['Sanitary Wares', 'Plumbing Materials'],
+  'bathroom':      ['Sanitary Wares'],
+  'sink':          ['Sanitary Wares', 'Plumbing Materials'],
+  'nail':          ['Nails, Bolts & Hardware'],
+  'nails':         ['Nails, Bolts & Hardware'],
+  'bolt':          ['Nails, Bolts & Hardware'],
+  'bolts':         ['Nails, Bolts & Hardware'],
+  'scaffold':      ['Scaffolding Services'],
+
+  // Food & groceries
+  'rice':          ['Farm Produce Sellers', 'Supermarkets & Hypermarkets', 'Open Markets & Stalls'],
+  'beans':         ['Farm Produce Sellers', 'Open Markets & Stalls'],
+  'yam':           ['Farm Produce Sellers', 'Yam & Cassava Sellers'],
+  'cassava':       ['Farm Produce Sellers', 'Yam & Cassava Sellers'],
+  'garri':         ['Farm Produce Sellers', 'Garri Sellers'],
+  'tomato':        ['Farm Produce Sellers', 'Fresh Vegetable Sellers'],
+  'tomatoes':      ['Farm Produce Sellers', 'Fresh Vegetable Sellers'],
+  'pepper':        ['Farm Produce Sellers', 'Fresh Vegetable Sellers'],
+  'onion':         ['Farm Produce Sellers', 'Fresh Vegetable Sellers'],
+  'onions':        ['Farm Produce Sellers', 'Fresh Vegetable Sellers'],
+  'vegetable':     ['Fresh Vegetable Sellers', 'Farm Produce Sellers'],
+  'vegetables':    ['Fresh Vegetable Sellers', 'Farm Produce Sellers'],
+  'fruit':         ['Fresh Fruit Sellers', 'Farm Produce Sellers'],
+  'fruits':        ['Fresh Fruit Sellers', 'Farm Produce Sellers'],
+  'fish':          ['Fresh Fish Sellers', 'Catfish & Tilapia Restaurants'],
+  'chicken':       ['Fresh Meat Sellers', 'Chicken & Poultry Sellers'],
+  'meat':          ['Fresh Meat Sellers', 'Abattoirs & Meat Processing'],
+  'beef':          ['Fresh Meat Sellers', 'Cow Meat (Beef) Sellers'],
+  'goat':          ['Goat & Ram Sellers', 'Fresh Meat Sellers'],
+  'egg':           ['Egg Sellers', 'Poultry Farming'],
+  'eggs':          ['Egg Sellers', 'Poultry Farming'],
+  'palm oil':      ['Palm Oil Sellers', 'Farm Produce Sellers'],
+  'groundnut oil': ['Groundnut Oil Sellers', 'Farm Produce Sellers'],
+  'crayfish':      ['Crayfish & Stockfish Sellers'],
+  'stockfish':     ['Crayfish & Stockfish Sellers'],
+  'flour':         ['Flour Milling', 'Supermarkets & Hypermarkets'],
+  'sugar':         ['Supermarkets & Hypermarkets', 'Wholesale & Distribution'],
+  'milk':          ['Dairy & Milk Processing', 'Supermarkets & Hypermarkets'],
+  'honey':         ['Honey Sellers'],
+  'spice':         ['Spices & Seasoning Production', 'Farm Produce Sellers'],
+  'spices':        ['Spices & Seasoning Production'],
+
+  // Electronics & gadgets
+  'phone':         ['Mobile Phone Shops', 'Phone Repairs'],
+  'laptop':        ['Computer Shops', 'Laptop & Computer Repairers'],
+  'computer':      ['Computer Shops', 'Computer Engineers'],
+  'tv':            ['Electronics & Gadgets', 'TV & Electronics Repairs'],
+  'television':    ['Electronics & Gadgets'],
+  'fridge':        ['Household Appliances', 'Refrigerator & Freezer Technicians'],
+  'refrigerator':  ['Household Appliances', 'Refrigerator & Freezer Technicians'],
+  'freezer':       ['Household Appliances', 'Refrigerator & Freezer Technicians'],
+  'washing machine':['Household Appliances', 'Washing Machine Technicians'],
+  'air conditioner':['AC & Refrigeration Services', 'Household Appliances'],
+  'ac':            ['AC & Refrigeration Services'],
+  'fan':           ['Household Appliances', 'Electronics & Gadgets'],
+  'blender':       ['Household Appliances', 'Kitchenware & Cookware'],
+  'microwave':     ['Household Appliances'],
+  'printer':       ['Computer Shops', 'Printer Repairers'],
+  'battery':       ['Inverter & Battery Sales', 'Electronics & Gadgets'],
+  'charger':       ['Phone Accessories', 'Electronics & Gadgets'],
+  'earphone':      ['Phone Accessories', 'Electronics & Gadgets'],
+  'headphone':     ['Phone Accessories', 'Electronics & Gadgets'],
+  'power bank':    ['Phone Accessories', 'Electronics & Gadgets'],
+  'cctv':          ['CCTV & Surveillance Systems', 'CCTV & Alarm Installers'],
+  'camera':        ['Electronics & Gadgets', 'Photography & Video'],
+
+  // Clothing & fashion
+  'cloth':         ['Fashion & Clothing', 'Tailoring & Fashion Design'],
+  'clothes':       ['Fashion & Clothing'],
+  'dress':         ['Fashion & Clothing', 'Tailoring & Fashion Design'],
+  'shoe':          ['Shoes & Footwear'],
+  'shoes':         ['Shoes & Footwear'],
+  'bag':           ['Bags & Accessories'],
+  'bags':          ['Bags & Accessories'],
+  'fabric':        ['Fabrics & Textiles', 'Ankara & Aso-Oke Sellers'],
+  'ankara':        ['Ankara & Aso-Oke Sellers'],
+  'lace':          ['Lace & George Fabric Sellers'],
+  'wig':           ['Wigs & Hair Extensions'],
+  'wigs':          ['Wigs & Hair Extensions'],
+  'jewellery':     ['Jewellery & Watches'],
+  'jewelry':       ['Jewellery & Watches'],
+  'watch':         ['Jewellery & Watches'],
+  'perfume':       ['Perfumes & Fragrances'],
+  'cosmetics':     ['Cosmetics & Beauty Products'],
+
+  // Automotive
+  'tyre':          ['Tyre Services & Vulcanisers', 'Auto Parts & Accessories'],
+  'tyres':         ['Tyre Services & Vulcanisers'],
+  'engine oil':    ['Lubricants & Engine Oil', 'Auto Parts & Accessories'],
+  'spare part':    ['Car Spare Parts', 'Auto Parts & Accessories'],
+  'spare parts':   ['Car Spare Parts', 'Auto Parts & Accessories'],
+  'car part':      ['Car Spare Parts'],
+  'car parts':     ['Car Spare Parts'],
+  'battery car':   ['Auto Parts & Accessories'],
+
+  // Fuel & energy
+  'petrol':        ['Filling Stations & Petrol Stations'],
+  'diesel':        ['Filling Stations & Petrol Stations', 'Petroleum Products'],
+  'kerosene':      ['Petroleum Products', 'Gas & Cooking Fuel'],
+  'gas':           ['Gas & Cooking Fuel', 'LPG & CNG Stations'],
+  'cooking gas':   ['Gas & Cooking Fuel'],
+  'lpg':           ['LPG & CNG Stations', 'Gas & Cooking Fuel'],
+  'solar panel':   ['Solar & Renewable Energy', 'Solar Panel Installation'],
+  'inverter':      ['Inverter & Battery Sales', 'Solar & Renewable Energy'],
+
+  // Office & stationery
+  'stationery':    ['Stationery & Art Supplies', 'Office Supplies & Stationery'],
+  'book':          ['Bookshops', 'Books & Educational Materials'],
+  'books':         ['Bookshops', 'Books & Educational Materials'],
+  'pen':           ['Stationery & Art Supplies', 'Office Supplies & Stationery'],
+  'paper':         ['Office Supplies & Stationery', 'Printing & Publishing'],
+  'photocopy':     ['Business Centres (Xerox & Printing)', 'Photocopy & Scanning'],
+  'xerox':         ['Business Centres (Xerox & Printing)'],
+  'printing':      ['Printing & Publishing', 'Business Centres (Xerox & Printing)'],
+  'lamination':    ['Binding & Lamination Services'],
+  'binding':       ['Binding & Lamination Services'],
+
+  // Agriculture
+  'fertilizer':    ['Fertiliser & Agro-Chemicals'],
+  'fertiliser':    ['Fertiliser & Agro-Chemicals'],
+  'seedling':      ['Seedlings & Nursery Plants'],
+  'seedlings':     ['Seedlings & Nursery Plants'],
+  'feed':          ['Livestock Feed Sellers', 'Poultry Farming'],
+  'poultry':       ['Poultry Farming', 'Chicken & Poultry Sellers'],
+  'day old chick': ['Poultry Farming', 'Hatchery Services'],
+
+  // Healthcare products
+  'drug':          ['Pharmacies & Chemists'],
+  'drugs':         ['Pharmacies & Chemists'],
+  'medicine':      ['Pharmacies & Chemists'],
+  'supplement':    ['Pharmacies & Chemists', 'Vitamins & Supplements'],
+  'vitamin':       ['Pharmacies & Chemists', 'Vitamins & Supplements'],
+  'condom':        ['Pharmacies & Chemists'],
+  'glasses':       ['Eye Clinics & Opticians', 'Optical Shops & Glasses'],
+  'contact lens':  ['Eye Clinics & Opticians'],
+
+  // Furniture & home
+  'mattress':      ['Bedding & Mattresses', 'Foam & Mattress Manufacturers'],
+  'bed':           ['Furniture & Decor', 'Bedding & Mattresses'],
+  'sofa':          ['Furniture & Decor'],
+  'chair':         ['Furniture & Decor'],
+  'table':         ['Furniture & Decor'],
+  'wardrobe':      ['Furniture & Decor', 'Carpenters & Woodwork'],
+  'curtain':       ['Curtains & Blinds'],
+  'rug':           ['Furniture & Decor'],
+  'carpet':        ['Furniture & Decor', 'Carpet & Upholstery Cleaning'],
+  'pot':           ['Kitchenware & Cookware'],
+  'pots':          ['Kitchenware & Cookware'],
+  'cookware':      ['Kitchenware & Cookware'],
+  'gas cooker':    ['Kitchenware & Cookware', 'Gas & Cooking Fuel'],
+  'stove':         ['Kitchenware & Cookware'],
+
+  // Buy/sell intent words — map to relevant categories
+  'buy':           [], // handled by product words
+  'sell':          ['Open Markets & Stalls', 'Wholesale & Distribution'],
+  'wholesale':     ['Wholesale & Distribution'],
+  'retail':        ['Supermarkets & Hypermarkets', 'Mini Marts & Kiosks'],
+  'cheap':         ['Open Markets & Stalls', 'Wholesale & Distribution'],
+  'affordable':    ['Open Markets & Stalls'],
+  'dealer':        ['Wholesale & Distribution'],
+  'supplier':      ['Wholesale & Distribution', 'Importers & Exporters'],
+  'distributor':   ['Wholesale & Distribution'],
+  'importer':      ['Importers & Exporters'],
+  'exporter':      ['Importers & Exporters'],
 };
 
 // Expand query into category terms using aliases
 function expandQuery(q: string): string[] {
   const lower = q.toLowerCase().trim();
-  const terms: string[] = [q]; // always include original
 
-  for (const [keyword, categories] of Object.entries(KEYWORD_ALIASES)) {
-    if (lower.includes(keyword)) {
-      terms.push(...categories);
+  // Strip purchase/intent words — "buy cement" → "cement"
+  const intentStripped = lower
+    .replace(/\b(buy|sell|purchase|get|find|where to|where can i|i want|i need|looking for|need to buy|want to buy|how to get|price of|cost of|cheap|affordable)\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const terms: string[] = [q, intentStripped].filter(Boolean);
+
+  // Check both original and stripped version against aliases
+  for (const checkStr of [lower, intentStripped]) {
+    for (const [keyword, categories] of Object.entries(KEYWORD_ALIASES)) {
+      if (categories.length > 0 && checkStr.includes(keyword)) {
+        terms.push(...categories);
+      }
     }
   }
+
   return [...new Set(terms)];
 }
 

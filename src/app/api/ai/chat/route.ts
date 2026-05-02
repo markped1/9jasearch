@@ -56,6 +56,37 @@ const CATEGORY_MAP: Record<string, string> = {
   logistics: 'Logistics & Courier Services', courier: 'Logistics & Courier Services',
   'real estate': 'Real Estate Agents', property: 'Real Estate Agents',
   accountant: 'Accounting & Auditing', accounting: 'Accounting & Auditing',
+  // Products people want to buy
+  cement: 'Building Materials', 'iron rod': 'Building Materials',
+  'iron rods': 'Building Materials', 'roofing sheet': 'Roofing Materials',
+  zinc: 'Roofing Materials', block: 'Block Industry', blocks: 'Block Industry',
+  tile: 'Tiles & Flooring', tiles: 'Tiles & Flooring', paint: 'Paints & Coatings',
+  wood: 'Carpenters & Woodwork', timber: 'Carpenters & Woodwork',
+  pipe: 'Plumbing Materials', pipes: 'Plumbing Materials',
+  wire: 'Electrical Materials', cables: 'Electrical Materials',
+  door: 'Doors & Windows', doors: 'Doors & Windows',
+  window: 'Doors & Windows', windows: 'Doors & Windows',
+  toilet: 'Sanitary Wares', bathroom: 'Sanitary Wares',
+  rice: 'Farm Produce Sellers', beans: 'Farm Produce Sellers',
+  yam: 'Farm Produce Sellers', tomato: 'Fresh Vegetable Sellers',
+  tomatoes: 'Fresh Vegetable Sellers', pepper: 'Fresh Vegetable Sellers',
+  fish: 'Fresh Fish Sellers', chicken: 'Chicken & Poultry Sellers',
+  meat: 'Fresh Meat Sellers', egg: 'Egg Sellers', eggs: 'Egg Sellers',
+  'palm oil': 'Palm Oil Sellers', crayfish: 'Crayfish & Stockfish Sellers',
+  phone: 'Mobile Phone Shops', laptop: 'Computer Shops',
+  fridge: 'Household Appliances', freezer: 'Household Appliances',
+  'washing machine': 'Household Appliances', 'air conditioner': 'AC & Refrigeration Services',
+  tyre: 'Tyre Services & Vulcanisers', tyres: 'Tyre Services & Vulcanisers',
+  'spare parts': 'Car Spare Parts', 'spare part': 'Car Spare Parts',
+  petrol: 'Filling Stations & Petrol Stations', diesel: 'Filling Stations & Petrol Stations',
+  gas: 'Gas & Cooking Fuel', 'cooking gas': 'Gas & Cooking Fuel',
+  'solar panel': 'Solar & Renewable Energy', inverter: 'Inverter & Battery Sales',
+  stationery: 'Stationery & Art Supplies', book: 'Bookshops', books: 'Bookshops',
+  photocopy: 'Business Centres (Xerox & Printing)', xerox: 'Business Centres (Xerox & Printing)',
+  mattress: 'Bedding & Mattresses', furniture: 'Furniture & Decor',
+  drug: 'Pharmacies & Chemists', drugs: 'Pharmacies & Chemists',
+  medicine: 'Pharmacies & Chemists', fertilizer: 'Fertiliser & Agro-Chemicals',
+  'building material': 'Building Materials', 'building materials': 'Building Materials',
 };
 
 // ── Extract city from message ────────────────────────────────────
@@ -198,9 +229,9 @@ export async function POST(request: Request) {
 
     // ── Recommend / Search ────────────────────────────────────────
     if (intent === 'recommend' || intent === 'search') {
-      // Clean the query — remove stop words
-      const stopWords = /\b(find|search|looking|for|need|a|an|the|me|i|want|recommend|suggest|best|top|good|show|get|please|can|you|help|where|is|are|there|any|some|in|at|near|around|lagos|abuja)\b/gi;
-      let cleanQuery = msg.replace(stopWords, ' ').replace(/\s+/g, ' ').trim();
+      // Strip purchase intent words
+      const intentWords = /\b(buy|purchase|get|find|where to|where can i|i want|i need|looking for|need to buy|want to buy|how to get|price of|cost of)\b/gi;
+      let cleanQuery = msg.replace(intentWords, ' ').replace(/\s+/g, ' ').trim();
 
       // Use category if found, otherwise use cleaned query
       const searchTerm = category || cleanQuery;
