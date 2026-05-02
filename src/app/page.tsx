@@ -108,9 +108,17 @@ export default function Home() {
               ref={inputRef}
               type="text"
               className={styles.searchInput}
-              placeholder="Search businesses / services..."
+              placeholder='Search businesses / services... or type "near me"'
               value={query}
-              onChange={e => setQuery(e.target.value)}
+              onChange={e => {
+                setQuery(e.target.value);
+                // Auto-trigger geolocation when user types "near me"
+                if (/near me|close to me|around me/i.test(e.target.value)) {
+                  // Don't show suggestions — we'll handle on submit
+                  setSuggestions([]);
+                  setShowSuggestions(false);
+                }
+              }}
               onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               aria-label="Search businesses"
@@ -133,38 +141,6 @@ export default function Home() {
             </ul>
           )}
         </form>
-
-        {/* Near Me button — above category chips */}
-        <button
-          type="button"
-          onClick={() => navigate('near me')}
-          style={{
-            marginBottom: '12px',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'transparent',
-            border: '1.5px solid #0B7A3E',
-            color: '#0B7A3E',
-            padding: '10px 24px',
-            borderRadius: '24px',
-            fontSize: '14px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            fontFamily: 'inherit',
-            transition: 'background 0.15s, color 0.15s',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = '#0B7A3E';
-            (e.currentTarget as HTMLButtonElement).style.color = 'white';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-            (e.currentTarget as HTMLButtonElement).style.color = '#0B7A3E';
-          }}
-        >
-          📍 Near Me
-        </button>
 
         {/* Category buttons — exactly 4, square, matching design */}
         <div className={styles.chips}>
