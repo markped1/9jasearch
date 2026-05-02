@@ -231,15 +231,81 @@
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .hero { padding: 36px 16px 80px; }
+  .main {
+    min-height: calc(100vh - 48px);
+  }
 
-  .searchBox { height: 50px; }
-  .searchInput { font-size: 15px; }
-  .searchBtn { width: 46px; height: 40px; }
+  .hero {
+    padding: 20px 16px 90px; /* less top padding, more bottom for mobile nav */
+    justify-content: flex-start;
+    padding-top: 24px;
+  }
+
+  .logoWrap {
+    padding-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .heroLogoText {
+    font-size: 32px; /* smaller on mobile */
+  }
+
+  .magAboveH {
+    top: -22px;
+  }
+
+  .magAboveH svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .taglineText {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .taglineLine {
+    width: 20px;
+  }
+
+  .searchForm {
+    margin-bottom: 16px;
+  }
+
+  .searchBox {
+    height: 50px;
+  }
+
+  .searchInput {
+    font-size: 15px;
+  }
+
+  .searchInput::placeholder {
+    font-size: 13px;
+  }
+
+  .searchBtn {
+    width: 46px;
+    height: 40px;
+  }
+
+  /* Full width chips on mobile — 2 per row */
+  .chips {
+    width: 100%;
+    max-width: 100%;
+  }
 
   .chip {
-    min-width: 120px;
-    padding: 10px 18px;
-    font-size: 13px;
+    flex: 1;
+    min-width: calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    padding: 12px 8px;
+    font-size: 14px;
+    margin: 4px;
+  }
+
+  .chipIcon {
+    width: 18px;
+    height: 18px;
   }
 }

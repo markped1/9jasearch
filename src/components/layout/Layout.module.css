@@ -224,20 +224,43 @@
     }
 
     .header {
-        height: 44px;
+        height: 48px;
     }
 
     .headerContainer {
-        gap: 12px;
-        padding: 0 14px;
+        gap: 8px;
+        padding: 0 12px;
     }
 
     .addBizBtn {
         font-size: 12px;
-        padding: 5px 12px;
+        padding: 5px 10px;
     }
 
+    /* Show phone as icon only on mobile */
     .phone {
-        display: none; /* hide phone on small screens */
+        display: flex;
+        font-size: 0; /* hide text, keep icon */
+        gap: 0;
+    }
+
+    .phone svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Footer needs padding above mobile nav */
+@media (max-width: 768px) {
+    .footer {
+        padding-bottom: calc(70px + env(safe-area-inset-bottom));
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .footerInner {
+        flex-direction: column;
+        gap: 6px;
+        font-size: 11px;
     }
 }
