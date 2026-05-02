@@ -22,6 +22,7 @@ interface KYCRecord {
     reviewNote?: string;
     reviewedAt?: string;
     createdAt: string;
+    documents?: string | null;
     business?: {
         id: string;
         name: string;
