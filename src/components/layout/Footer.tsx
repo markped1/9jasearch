@@ -1,22 +1,19 @@
+import Link from 'next/link';
 import styles from './Layout.module.css';
 
 export default function Footer() {
     return (
         <footer className={styles.footer}>
-            <div className="container" style={{ textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-                <div>
-                    <p style={{ margin: 0 }}>
-                        &copy; {new Date().getFullYear()} Eagle Search Naija. Trusted Nigerian Business Search.
-                        <span style={{ marginLeft: '10px', paddingLeft: '10px', borderLeft: '1px solid #ddd', color: '#ffd700', fontWeight: 600 }}>
-                            Designed by Thompson Obosa
-                        </span>
-                    </p>
-                </div>
-                <div style={{ fontSize: '0.9rem', color: '#888', display: 'flex', gap: '15px', alignItems: 'center' }}>
-                    <span style={{ color: '#008751', fontWeight: 800 }}>v1.1 (Stable 50% Scale)</span>
-                    <span>Privacy Policy</span>
-                    <span>Terms of Service</span>
-                </div>
+            <div className={styles.footerInner}>
+                <span>
+                    &copy; {new Date().getFullYear()} 9jasearch. SEARCH NAIJA, FIND MORE.
+                    {' '}|{' '}Designed by{' '}
+                    <span className={styles.designer}>Thompson Obosa</span>
+                    {' '}|{' '}
+                    <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
+                    {' '}|{' '}
+                    <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
+                </span>
             </div>
         </footer>
     );

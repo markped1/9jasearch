@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { LayoutDashboard, Users, ShieldCheck, CreditCard, Settings, Loader2, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, ShieldCheck, CreditCard, Settings, Loader2, LogOut, FileCheck } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -30,11 +30,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (session?.user?.role !== 'ADMIN') return null;
 
     const navItems = [
-        { icon: LayoutDashboard, label: 'Overview', href: '/admin' },
-        { icon: ShieldCheck, label: 'Verification', href: '/admin/verification' },
-        { icon: Users, label: 'Users & Business', href: '/admin/users' },
-        { icon: CreditCard, label: 'Transactions', href: '/admin/payments' },
-        { icon: Settings, label: 'Settings', href: '/admin/settings' },
+        { icon: LayoutDashboard, label: 'Overview',       href: '/admin' },
+        { icon: ShieldCheck,     label: 'Verification',   href: '/admin/verification' },
+        { icon: FileCheck,       label: 'KYC Review',     href: '/admin/kyc' },
+        { icon: Users,           label: 'Users & Business', href: '/admin/users' },
+        { icon: CreditCard,      label: 'Transactions',   href: '/admin/payments' },
+        { icon: Settings,        label: 'Settings',       href: '/admin/settings' },
     ];
 
     return (
@@ -53,7 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', padding: '0 10px' }}>
                     <div style={{ width: '32px', height: '32px', background: '#008751', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>A</div>
-                    {isSidebarOpen && <span style={{ fontSize: '18px', fontWeight: '700', letterSpacing: '0.5px' }}>EAGLE <span style={{ color: '#008751' }}>ADMIN</span></span>}
+                    {isSidebarOpen && <span style={{ fontSize: '18px', fontWeight: '700', letterSpacing: '0.5px' }}>9JA <span style={{ color: '#008751' }}>ADMIN</span></span>}
                 </div>
 
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

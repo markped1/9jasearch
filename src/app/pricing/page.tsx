@@ -33,28 +33,11 @@ export default function PricingPage() {
 
         try {
             setLoading(plan);
-            // Fetch user's businesses
-            const res = await fetch('/api/admin/businesses'); // Reusing admin listing but filter for owner?
-            // Better: create a lightweight endpoint or use existing one.
-            // Let's assume we can get it from the session if we added it, but let's try to fetch
-            // Actually, let's fetch from /api/businesses?ownerId=... if supported or just /api/user/business
+            // Fetch user's primary business
+            const bizRes = await fetch('/api/businesses/owner');
+            const myBiz = await bizRes.json();
 
-            // Hack: For now, let's assume the user has access to their business ID via dashboard or just fetch it here.
-            // Let's fetch the first business owned by the user.
-            const bizRes = await fetch(`/api/businesses/search?q=${session.user.email}`); // Search by owner email if implemented?
-            // No, let's use the dashboard logic: fetch all businesses and find the one owned by user.
-            // We really need a "getMyBusinesses" endpoint. 
-            // Let's assume the user is on the dashboard or we redirect them to dashboard to click "Upgrade".
-            // But this is a Pricing Page. 
-
-            // Strategy: Initiate payment requires businessId. 
-            // If we don't have it, we can't start. 
-            // Let's Fetch /api/businesses then filter.
-            const allBizRes = await fetch('/api/businesses/search?limit=100');
-            const allBiz = await allBizRes.json();
-            const myBiz = allBiz.find((b: any) => b.ownerId === session.user.id);
-
-            if (!myBiz) {
+            if (!myBiz?.id) {
                 alert('You need to create a business first!');
                 router.push('/add-business');
                 return;
@@ -88,7 +71,7 @@ export default function PricingPage() {
     return (
         <main className={styles.container}>
             <div className={styles.header}>
-                <h1 className={styles.title}>Grow Your Business with Eagle Search</h1>
+                <h1 className={styles.title}>Grow Your Business with 9jaSearch</h1>
                 <p className={styles.subtitle}>Choose the plan that fits your needs and start getting more customers today.</p>
             </div>
 

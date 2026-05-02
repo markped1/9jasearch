@@ -76,7 +76,7 @@ export default function BookingWidget({ businessId, businessName }: { businessId
                 style={{
                     background: '#008751', color: 'white', border: 'none',
                     padding: '12px 24px', borderRadius: '8px', fontWeight: '600',
-                    display: 'flex', alignItems: 'center', gap: '8px', cursor: 'cursor',
+                    display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
                     boxShadow: '0 4px 12px rgba(0,135,81,0.2)'
                 }}
             >

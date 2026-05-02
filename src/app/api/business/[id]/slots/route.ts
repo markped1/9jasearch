@@ -22,9 +22,13 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         // 3. Filter out past times if today.
         // 4. Filter out bookings.
 
-        const startHour = parseInt(business.openingTime || '09:00');
-        const endHour = parseInt(business.closingTime || '17:00');
-        // Simple int parsing (9:00 -> 9).
+        // Parse HH:MM format correctly
+        const parseHour = (timeStr: string) => {
+            const parts = timeStr.split(':');
+            return parseInt(parts[0], 10);
+        };
+        const startHour = parseHour(business.openingTime || '09:00');
+        const endHour = parseHour(business.closingTime || '17:00');
 
         const slots = [];
         const baseDate = new Date(dateStr);

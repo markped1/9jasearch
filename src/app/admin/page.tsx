@@ -23,8 +23,14 @@ export default function AdminDashboard() {
     if (loading) return <div style={{ padding: '50px', textAlign: 'center' }}><Loader2 className="animate-spin" /> Loading stats...</div>;
     if (!stats) return <div>Error loading stats</div>;
 
-    const { totalUsers, totalBusinesses, pendingVerifications, revenue, tiers } = stats.stats;
-    const recentPayments = stats.recentPayments;
+    const {
+        totalUsers = 0,
+        totalBusinesses = 0,
+        pendingVerifications = 0,
+        revenue = 0,
+        tiers = { platinum: 0, gold: 0, silver: 0 }
+    } = stats?.stats || {};
+    const recentPayments = stats?.recentPayments || [];
 
     return (
         <div>

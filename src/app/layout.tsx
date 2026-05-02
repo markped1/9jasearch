@@ -11,8 +11,8 @@ import MobileNav from '@/components/layout/MobileNav'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Eagle Search Naija - Trusted Nigerian Business Directory',
-  description: 'Find paid and verified businesses in Nigeria. Maps, Reviews, and Contact Info.',
+  title: '9jaSearch - Find Trusted Businesses in Nigeria',
+  description: 'Search Naija. Find More. Discover verified businesses, services and professionals across Nigeria.',
   manifest: '/manifest.json',
   icons: {
     icon: '/logo.png',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Eagle Search',
+    title: '9jaSearch',
   },
   other: {
     'mobile-web-app-capable': 'yes',
@@ -48,7 +48,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', paddingTop: '44px' }}>
         <AuthProvider>
           <Header />
           {children}
@@ -60,12 +60,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                    console.log('SW registered:', registration.scope);
-                  }).catch(function(error) {
-                    console.log('SW registration failed:', error);
-                  });
+                navigator.serviceWorker.getRegistrations().then(function(regs) {
+                  regs.forEach(function(r) { r.unregister(); });
+                });
+                caches.keys().then(function(keys) {
+                  keys.forEach(function(k) { caches.delete(k); });
                 });
               }
             `

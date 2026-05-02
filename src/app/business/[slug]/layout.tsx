@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Business Profile | Eagle Search Naija',
-    description: 'View business details, reviews, and contact information.',
+    title: 'Business Profile | 9jaSearch',
+    description: 'View business details, reviews, and contact information on 9jaSearch.',
 };
 
 export default function BusinessLayout({

@@ -51,7 +51,7 @@ export default function RegistrationPage() {
         <div className={styles.pageContainer}>
             <div className={styles.regCard}>
                 <div className={styles.header}>
-                    <div className={styles.logo}>EAGLE<span>SEARCH</span></div>
+                    <div className={styles.logo}>9JA<span>SEARCH</span></div>
                     <h1 className={styles.title}>Join the Community</h1>
                     <p className={styles.subtitle}>Create your account for personalized results.</p>
                 </div>

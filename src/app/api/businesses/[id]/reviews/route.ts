@@ -38,7 +38,35 @@ export async function POST(
         });
 
         if (!defaultUser) {
-            return NextResponse.json({ error: 'System user not found' }, { status: 500 });
+            // Create the community user if it doesn't exist
+            const newUser = await prisma.user.create({
+                data: {
+                    email: 'community@eaglesearch.ng',
+                    name: 'Community Member',
+                    role: 'USER'
+                }
+            });
+
+            const review = await prisma.review.create({
+                data: {
+                    rating: Number(rating),
+                    comment,
+                    businessId: id,
+                    userId: newUser.id
+                }
+            });
+
+            const allReviews = await prisma.review.findMany({
+                where: { businessId: id },
+                select: { rating: true }
+            });
+            const avgRating = allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length;
+            await prisma.business.update({
+                where: { id },
+                data: { rating: avgRating, reviewCount: allReviews.length }
+            });
+
+            return NextResponse.json(review);
         }
 
         // Create the review

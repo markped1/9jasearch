@@ -1,0 +1,89 @@
+/* ── Wrapper ── */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  overflow: visible;
+}
+
+/* ── "9" bounce in ── */
+.nine {
+  animation: nineIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-origin: 60px 80px;
+}
+
+@keyframes nineIn {
+  0%   { transform: scale(0.3) rotate(-20deg); opacity: 0; }
+  100% { transform: scale(1)   rotate(0deg);   opacity: 1; }
+}
+
+/* ── Lime slash fade in ── */
+.slash {
+  animation: fadeIn 0.4s 0.3s ease both;
+}
+
+/* ── "j" slide in from left ── */
+.ja {
+  animation: slideLeft 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slideLeft {
+  0%   { transform: translateX(-24px); opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
+
+/* ── Magnifier ring pop in ── */
+.magRing {
+  animation: popIn 0.5s 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-origin: 272px 82px;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Handle slide in ── */
+.handle {
+  animation: handleIn 0.35s 0.6s ease both;
+}
+
+@keyframes handleIn {
+  0%   { transform: translate(-10px, -10px); opacity: 0; }
+  100% { transform: translate(0, 0);         opacity: 1; }
+}
+
+/* ── Nigeria map continuous swivel ── */
+.nigeriaMap {
+  transform-origin: 0px 0px;
+  animation: mapSwivel 4s 1s ease-in-out infinite;
+}
+
+@keyframes mapSwivel {
+  0%,100% { transform: rotate(0deg)  scale(1);   }
+  15%      { transform: rotate(12deg) scale(0.92); }
+  30%      { transform: rotate(0deg)  scale(1);   }
+}
+
+/* ── Wordmark slide up ── */
+.wordmark {
+  animation: slideUp 0.55s 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slideUp {
+  0%   { transform: translateY(18px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Tagline fade in ── */
+.tagline {
+  animation: fadeIn 0.5s 0.7s ease both;
+}
+
+@keyframes fadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

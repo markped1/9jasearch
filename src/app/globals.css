@@ -6,9 +6,7 @@
   --secondary-color: #ffffff;
   --text-color: #333333;
   --bg-color: #f8f9fa;
-  /* Restored off-white bg */
   --max-width: 95%;
-  /* FLUID WIDTH - Matches "Expand to fit browser" request */
 }
 
 * {
@@ -19,7 +17,6 @@
 
 html {
   font-size: 8px !important;
-  /* Radical 50% scale reduction for a professional 'small' look */
   overflow-x: hidden;
   width: 100vw;
 }
@@ -32,7 +29,6 @@ body {
   color: var(--text-color);
   overflow-x: hidden;
   position: relative;
-  /* Safe Area Support */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -42,11 +38,9 @@ a {
   color: inherit;
 }
 
-/* Fluid Container */
 .container {
   width: 100%;
   max-width: var(--max-width);
-  /* Uses 95% now */
   margin: 0 auto;
   padding: 0 20px;
 }

@@ -17,13 +17,10 @@ export default function EagleBot() {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'bot', text: 'Hi! I\'m Eagle Bot. 🦅 looking for something? Just ask!' }
+        { role: 'bot', text: 'Hi! I\'m 9jaBot 🤖 Looking for something? Just ask!' }
     ]);
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
-    // Hide on admin routes?
-    if (pathname?.startsWith('/admin')) return null;
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,6 +29,9 @@ export default function EagleBot() {
     useEffect(() => {
         scrollToBottom();
     }, [messages, isOpen]);
+
+    // Hide on admin routes
+    if (pathname?.startsWith('/admin')) return null;
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -92,7 +92,7 @@ export default function EagleBot() {
                         <Bot size={20} color="#008751" />
                     </div>
                     <div>
-                        <div style={{ fontWeight: '700', fontSize: '15px' }}>Eagle Bot</div>
+                        <div style={{ fontWeight: '700', fontSize: '15px' }}>9jaBot</div>
                         <div style={{ fontSize: '11px', opacity: 0.9 }}>AI Concierge</div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@ export default function EagleBot() {
                         style={{
                             background: '#008751', color: 'white', border: 'none',
                             width: '40px', height: '40px', borderRadius: '50%',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'cursor'
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                         }}
                     >
                         <Send size={18} />

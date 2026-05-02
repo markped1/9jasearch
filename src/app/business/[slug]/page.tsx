@@ -5,13 +5,10 @@ import styles from './BusinessProfile.module.css';
 import ReviewsSection from '@/components/business/ReviewsSection';
 import ImageGallery from '@/components/business/ImageGallery';
 import dynamic from 'next/dynamic';
-
 import BusinessChatWindow from '@/components/chat/BusinessChatWindow';
 import BookingWidget from '@/components/booking/BookingWidget';
-
 import ProfileMapWrapper from '@/components/business/ProfileMapWrapper';
-
-// Imports are already correct above
+import { calculateTrustScore } from '@/lib/trustScore';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -26,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
 
     if (!business) {
         return {
-            title: 'Business Not Found - Eagle Search'
+            title: 'Business Not Found - 9jaSearch'
         };
     }
 
@@ -34,7 +31,7 @@ export async function generateMetadata({ params }: Props) {
     const ogImage = images.length > 0 ? images[0] : '/og-default.jpg';
 
     return {
-        title: `${business.name} - ${business.category} in ${business.city} | Eagle Search`,
+        title: `${business.name} - ${business.category} in ${business.city} | 9jaSearch`,
         description: business.description?.slice(0, 160) || `Find details for ${business.name} in ${business.city}.`,
         openGraph: {
             images: [ogImage],
@@ -53,6 +50,8 @@ export default async function BusinessProfile({ params }: Props) {
     if (!business) {
         notFound();
     }
+
+    const trust = calculateTrustScore(business);
 
     return (
         <div className={styles.container}>
@@ -138,6 +137,30 @@ export default async function BusinessProfile({ params }: Props) {
                     </div>
 
                     <div className={styles.contactCard}>
+                        {/* Trust Score Badge */}
+                        <div style={{
+                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                            padding: '12px 16px', background: '#f9f9f9', borderRadius: '10px',
+                            marginBottom: '16px', border: `1px solid ${trust.color}22`,
+                        }}>
+                            <div>
+                                <div style={{ fontSize: '11px', color: '#888', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Trust Score</div>
+                                <div style={{ fontSize: '18px', fontWeight: '800', color: trust.color }}>{trust.score}/100</div>
+                                <div style={{ fontSize: '12px', fontWeight: '600', color: trust.color }}>{trust.level}</div>
+                            </div>
+                            <div style={{ position: 'relative', width: '52px', height: '52px' }}>
+                                <svg width="52" height="52" viewBox="0 0 52 52">
+                                    <circle cx="26" cy="26" r="22" fill="none" stroke="#e0e0e0" strokeWidth="5" />
+                                    <circle cx="26" cy="26" r="22" fill="none" stroke={trust.color} strokeWidth="5"
+                                        strokeDasharray={`${(trust.score / 100) * 138.2} 138.2`}
+                                        strokeLinecap="round"
+                                        transform="rotate(-90 26 26)" />
+                                </svg>
+                                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '800', color: trust.color }}>
+                                    {trust.score}
+                                </div>
+                            </div>
+                        </div>
                         <a href={`tel:${business.phone}`} className={`${styles.actionBtn} ${styles.callBtn}`}>
                             <Phone size={20} /> Call Now
                         </a>
@@ -160,7 +183,11 @@ export default async function BusinessProfile({ params }: Props) {
                             <Globe size={20} color="#008751" />
                             <div>
                                 <span style={{ display: 'block', paddingBottom: '2px', fontWeight: 600 }}>Website</span>
-                                <a href="#" style={{ fontSize: '14px', color: '#008751', textDecoration: 'underline' }}>Visit Website</a>
+                                {business.website ? (
+                                    <a href={business.website} target="_blank" rel="noopener noreferrer" style={{ fontSize: '14px', color: '#008751', textDecoration: 'underline' }}>Visit Website</a>
+                                ) : (
+                                    <span style={{ fontSize: '14px', color: '#999' }}>Not provided</span>
+                                )}
                             </div>
                         </div>
                         <div className={styles.contactItem}>
@@ -182,6 +209,27 @@ export default async function BusinessProfile({ params }: Props) {
                     {!business.lat && (
                         <div style={{ height: '250px', background: '#ddd', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontWeight: 600 }}>
                             <MapPin size={30} style={{ marginRight: '10px' }} /> Map Not Available
+                        </div>
+                    )}
+
+                    {/* Own this business? — like Google Business Profile */}
+                    {!business.ownerId && (
+                        <div style={{
+                            marginTop: '16px', padding: '16px', background: '#f9f9f9',
+                            border: '1px solid #e0e0e0', borderRadius: '12px', textAlign: 'center',
+                        }}>
+                            <p style={{ fontSize: '13px', color: '#666', margin: '0 0 10px' }}>
+                                Is this your business?
+                            </p>
+                            <a href={`/claim/${business.slug}`} style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '6px',
+                                color: '#008751', fontWeight: '700', fontSize: '14px',
+                                textDecoration: 'none', border: '1px solid #008751',
+                                padding: '8px 16px', borderRadius: '8px',
+                                transition: 'all 0.2s',
+                            }}>
+                                ✅ Claim this business
+                            </a>
                         </div>
                     )}
                 </div>

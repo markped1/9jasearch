@@ -43,7 +43,7 @@ export default function LoginPage() {
         <div className={styles.pageContainer}>
             <div className={styles.loginCard}>
                 <div className={styles.header}>
-                    <div className={styles.logo}>EAGLE<span>SEARCH</span></div>
+                    <div className={styles.logo}>9JA<span>SEARCH</span></div>
                     <h1 className={styles.title}>Welcome Back</h1>
                     <p className={styles.subtitle}>Log in to manage your verified listings.</p>
                 </div>

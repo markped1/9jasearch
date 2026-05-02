@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/dashboard/', '/admin/', '/api/'],
         },
-        sitemap: 'https://eaglesearch.ng/sitemap.xml',
+        sitemap: 'https://9jasearch.ng/sitemap.xml',
     }
 }

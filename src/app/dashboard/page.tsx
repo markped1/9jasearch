@@ -78,13 +78,15 @@ export default function OwnerDashboard() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     businessId: business.id,
-                    email: business.email,
-                    amount: 500000 // N5,000.00
+                    plan: 'PLATINUM'
                 })
             });
             const data = await res.json();
-            if (data.status && data.data.authorization_url) {
-                window.location.href = data.data.authorization_url;
+            if (data.authorization_url) {
+                window.location.href = data.authorization_url;
+            } else {
+                setError(data.error || 'Failed to initialize payment');
+                setPromoting(false);
             }
         } catch (err) {
             setError('Failed to initialize payment');
@@ -146,7 +148,7 @@ export default function OwnerDashboard() {
     return (
         <div className={styles.dashboardContainer}>
             <aside className={styles.sidebar}>
-                <div className={styles.logo}>EAGLE<span>OWNER</span></div>
+                <div className={styles.logo}>9JA<span>OWNER</span></div>
                 <nav className={styles.nav}>
                     <button className={`${styles.navItem} ${styles.active}`}><LayoutDashboard size={20} /> Overview</button>
                     <button className={styles.navItem}><Building2 size={20} /> My Listing</button>
@@ -172,7 +174,7 @@ export default function OwnerDashboard() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                             <h1 className={styles.title}>Welcome back, {business?.name || 'Partner'}</h1>
-                            <p className={styles.subtitle}>Manage your business presence on Eagle Search Naija.</p>
+                            <p className={styles.subtitle}>Manage your business presence on 9jaSearch.</p>
                         </div>
 
                         {!business.isFeatured && (

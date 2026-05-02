@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { Star, Navigation, Phone, Globe } from 'lucide-react';
+import { Star, Navigation, Phone, Globe, Clock } from 'lucide-react';
 import styles from './BusinessCard.module.css';
+import { getBusinessStatus } from '@/lib/businessHours';
 
 interface BusinessProps {
     business: {
@@ -12,6 +13,7 @@ interface BusinessProps {
         city: string;
         state: string;
         phone: string;
+        website?: string | null;
         rating: number;
         reviewCount: number;
         isVerified: boolean;
@@ -35,14 +37,14 @@ export default function BusinessCard({ business }: BusinessProps) {
         tagsList = business.tags;
     }
 
-    const isOpen = true; // Still mock for now
+    const status = getBusinessStatus(business.openingTime || null, business.closingTime || null);
 
     return (
         <div className={`${styles.card} ${business.isFeatured ? styles.featuredCard : ''}`}>
             <div className={styles.imageWrapper}>
                 {/* Placeholder for image */}
-                {business.name.charAt(0)}
-                {business.isFeatured && (
+                {(business?.name || '?').charAt(0)}
+                {business?.isFeatured && (
                     <div className={styles.featuredBadge}>FEATURED</div>
                 )}
             </div>
@@ -50,10 +52,12 @@ export default function BusinessCard({ business }: BusinessProps) {
             <div className={styles.content}>
                 {/* 1. Name */}
                 <div className={styles.nameContainer}>
-                    <Link href={`/business/${business.slug}`} style={{ textDecoration: 'none' }}>
-                        <h3 className={styles.name}>{business.name}</h3>
-                    </Link>
-                    {business.isVerified && (
+                    <h3 className={styles.name}>
+                        <Link href={`/business/${business?.slug || '#'}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            {business?.name || 'Unknown Business'}
+                        </Link>
+                    </h3>
+                    {business?.isVerified && (
                         <div className={styles.verifiedBadge} title="Verified Business">
                             <Star size={12} fill="#008751" style={{ marginRight: '4px' }} />
                             Verified
@@ -61,9 +65,9 @@ export default function BusinessCard({ business }: BusinessProps) {
                     )}
                 </div>
 
-                {/* 2. 5.0(1.1k) . Category */}
+                {/* 2. Rating & Category */}
                 <div className={styles.metaLine}>
-                    <span className={styles.ratingText}>{business.rating.toFixed(1)}</span>
+                    <span className={styles.ratingText}>{(business?.rating || 0).toFixed(1)}</span>
                     <div style={{ display: 'flex' }}>
                         <Star className={styles.ratingStar} />
                         <Star className={styles.ratingStar} />
@@ -76,20 +80,18 @@ export default function BusinessCard({ business }: BusinessProps) {
                     <span>{business.category}</span>
                 </div>
 
-                {/* 3. Address . Phone (Truncated address for snippet feel) */}
+                {/* 3. Address & Phone */}
                 <div className={styles.addressLine}>
                     {business.address}, {business.city} <span className={styles.dot}>·</span> {business.phone}
                 </div>
 
                 {/* 4. Opens/Closed . Time */}
                 <div className={styles.statusLine}>
-                    {isOpen ? (
-                        <span className={styles.open}>Open</span>
-                    ) : (
-                        <span className={styles.closed}>Closed</span>
-                    )}
+                    <span style={{ color: status.color, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Clock size={14} /> {status.label}
+                    </span>
                     <span className={styles.dot}>·</span>
-                    <span>{isOpen ? `Closes ${business.closingTime || '10:00 PM'}` : `Opens ${business.openingTime}`}</span>
+                    <span style={{ color: '#5f6368' }}>{status.secondary}</span>
                 </div>
 
                 {/* 5. Service Options (Tags) */}
@@ -101,15 +103,22 @@ export default function BusinessCard({ business }: BusinessProps) {
 
                 {/* Action Chips */}
                 <div className={styles.actionChips}>
-                    <button className={styles.chip}>
-                        <Globe size={14} /> Website
-                    </button>
-                    <button className={styles.chip}>
+                    {business.website && (
+                        <a href={business.website} target="_blank" rel="noopener noreferrer" className={styles.chip}>
+                            <Globe size={14} /> Website
+                        </a>
+                    )}
+                    <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${business.address}, ${business.city}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.chip}
+                    >
                         <Navigation size={14} /> Directions
-                    </button>
-                    <button className={styles.chip}>
+                    </a>
+                    <a href={`tel:${business.phone}`} className={styles.chip}>
                         <Phone size={14} /> Call
-                    </button>
+                    </a>
                 </div>
             </div>
         </div >

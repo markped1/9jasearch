@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://eaglesearch.ng' // Replace with actual production URL
+    const baseUrl = 'https://9jasearch.ng'
 
     // Static Routes
     const routes = [

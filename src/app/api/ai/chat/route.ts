@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
         // Intent: Greeting
         if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
-            responseText = "Hello! I'm Eagle Bot. 🦅 I can help you find businesses, deals, or check appointments. What do you need?";
+            responseText = "Hello! I'm 9jaBot 🤖 I can help you find businesses, deals, or check appointments. What do you need?";
             return NextResponse.json({ text: responseText, type: 'text' });
         }
 

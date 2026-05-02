@@ -26,7 +26,7 @@ export default function Chatbot() {
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'bot',
-            content: '🦅 Welcome to Eagle AI! I\'m your smart business guide.\n\nTry asking me things like:\n• "Find a quiet hotel in Lagos"\n• "Best rated restaurants near Lekki"\n• "Affordable mechanics"\n\nWhat can I help you find today?'
+            content: '🔍 Welcome to 9jaSearch AI! I\'m your smart business guide.\n\nTry asking me things like:\n• "Find a quiet hotel in Lagos"\n• "Best rated restaurants near Lekki"\n• "Affordable mechanics"\n\nWhat can I help you find today?'
         }
     ]);
 
@@ -132,7 +132,7 @@ export default function Chatbot() {
             }
             // Fallback
             else {
-                response = "I'm your smart business guide! 🦅\n\nTry asking:\n• \"Find hotels in Lagos\"\n• \"Best rated restaurants\"\n• \"Verified mechanics near me\"\n• \"Affordable IT services\"";
+                response = "I'm your smart business guide! 🔍\n\nTry asking:\n• \"Find hotels in Lagos\"\n• \"Best rated restaurants\"\n• \"Verified mechanics near me\"\n• \"Affordable IT services\"";
             }
 
             setTimeout(() => {
@@ -169,7 +169,7 @@ export default function Chatbot() {
                         <div className={styles.headerTitle}>
                             <div className={styles.botIcon}><Sparkles size={18} /></div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <span style={{ fontSize: '14px', fontWeight: 800 }}>Eagle AI Guide</span>
+                                <span style={{ fontSize: '14px', fontWeight: 800 }}>9jaSearch AI</span>
                                 <span style={{ fontSize: '10px', opacity: 0.8 }}>Smart Search • Level 3</span>
                             </div>
                         </div>
