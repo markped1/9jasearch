@@ -1,17 +1,35 @@
-import { MapPin, Phone, MessageCircle, Clock, Star, Globe, ShieldCheck, Tag } from 'lucide-react';
+import { MapPin, Clock, Star, Globe, ShieldCheck, Tag, Phone, MessageCircle } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import styles from './BusinessProfile.module.css';
 import ReviewsSection from '@/components/business/ReviewsSection';
 import ImageGallery from '@/components/business/ImageGallery';
-import dynamic from 'next/dynamic';
 import BusinessChatWindow from '@/components/chat/BusinessChatWindow';
 import BookingWidget from '@/components/booking/BookingWidget';
 import ProfileMapWrapper from '@/components/business/ProfileMapWrapper';
 import { calculateTrustScore } from '@/lib/trustScore';
+import BusinessAnalyticsTracker from '@/components/business/BusinessAnalyticsTracker';
+import ShareButton from '@/components/business/ShareButton';
+import WhatsAppButton from '@/components/business/WhatsAppButton';
+import TrackedActionButtons from '@/components/business/TrackedActionButtons';
 
 interface Props {
     params: Promise<{ slug: string }>;
+}
+
+/** Format a phone/whatsapp number to international Nigerian format (234XXXXXXXXXX) */
+function formatWhatsApp(raw: string): string {
+    // Remove spaces, dashes, parentheses, plus signs
+    let num = raw.replace(/[\s\-\(\)\+]/g, '');
+    // If starts with 0, replace with 234
+    if (num.startsWith('0')) {
+        num = '234' + num.slice(1);
+    }
+    // If doesn't start with 234, prepend it
+    if (!num.startsWith('234')) {
+        num = '234' + num;
+    }
+    return num;
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -53,18 +71,31 @@ export default async function BusinessProfile({ params }: Props) {
 
     const trust = calculateTrustScore(business);
 
+    // Determine WhatsApp number: prefer business.whatsapp, fall back to phone
+    const rawWhatsApp = business.whatsapp || business.phone;
+    const whatsappNumber = formatWhatsApp(rawWhatsApp);
+
     return (
         <div className={styles.container}>
+            {/* Client-side analytics tracker (page_view) */}
+            <BusinessAnalyticsTracker businessId={business.id} />
+
             {/* Banner */}
             <div className={styles.banner} style={{ backgroundImage: `url('/hero-bg.jpg')` }}>
                 <div className={styles.bannerOverlay}>
                     <div style={{ textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', marginBottom: '10px', opacity: 0.9 }}>
                         {business.category}
                     </div>
-                    <h1 className={styles.businessName}>
-                        {business.name}
-                        {business.isVerified && <span className={styles.badge}><ShieldCheck size={16} /> Verified</span>}
-                    </h1>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+                        <h1 className={styles.businessName}>
+                            {business.name}
+                            {business.isVerified && <span className={styles.badge}><ShieldCheck size={16} /> Verified</span>}
+                        </h1>
+                        {/* Share Button */}
+                        <div style={{ paddingTop: '8px' }}>
+                            <ShareButton businessName={business.name} slug={business.slug} />
+                        </div>
+                    </div>
                     <div className={styles.metaRow}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                             <Star fill="#FFD700" color="#FFD700" size={20} />
@@ -116,7 +147,6 @@ export default async function BusinessProfile({ params }: Props) {
                         </div>
                     )}
 
-
                     {/* Image Gallery */}
                     <ImageGallery
                         images={business.images ? JSON.parse(business.images) : []}
@@ -137,6 +167,13 @@ export default async function BusinessProfile({ params }: Props) {
                     </div>
 
                     <div className={styles.contactCard}>
+                        {/* Prominent WhatsApp Button at TOP of sidebar */}
+                        <WhatsAppButton
+                            whatsappNumber={whatsappNumber}
+                            businessId={business.id}
+                            businessName={business.name}
+                        />
+
                         {/* Trust Score Badge */}
                         <div style={{
                             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -161,12 +198,15 @@ export default async function BusinessProfile({ params }: Props) {
                                 </div>
                             </div>
                         </div>
-                        <a href={`tel:${business.phone}`} className={`${styles.actionBtn} ${styles.callBtn}`}>
-                            <Phone size={20} /> Call Now
-                        </a>
-                        <a href={`https://wa.me/${business.whatsapp?.replace(/\s/g, '')}`} className={`${styles.actionBtn} ${styles.whatsappBtn}`}>
-                            <MessageCircle size={20} /> WhatsApp
-                        </a>
+
+                        {/* Tracked action buttons (call, website, directions) */}
+                        <TrackedActionButtons
+                            businessId={business.id}
+                            phone={business.phone}
+                            website={business.website}
+                            address={business.address}
+                            city={business.city}
+                        />
 
                         <hr style={{ margin: '20px 0', border: 'none', borderTop: '1px solid #eee' }} />
 
@@ -184,7 +224,7 @@ export default async function BusinessProfile({ params }: Props) {
                             <div>
                                 <span style={{ display: 'block', paddingBottom: '2px', fontWeight: 600 }}>Website</span>
                                 {business.website ? (
-                                    <a href={business.website} target="_blank" rel="noopener noreferrer" style={{ fontSize: '14px', color: '#008751', textDecoration: 'underline' }}>Visit Website</a>
+                                    <span style={{ fontSize: '14px', color: '#999' }}>See link above</span>
                                 ) : (
                                     <span style={{ fontSize: '14px', color: '#999' }}>Not provided</span>
                                 )}

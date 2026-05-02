@@ -134,6 +134,38 @@ export default function Home() {
           )}
         </form>
 
+        {/* Near Me button — above category chips */}
+        <button
+          type="button"
+          onClick={() => navigate('near me')}
+          style={{
+            marginBottom: '12px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'transparent',
+            border: '1.5px solid #0B7A3E',
+            color: '#0B7A3E',
+            padding: '10px 24px',
+            borderRadius: '24px',
+            fontSize: '14px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            transition: 'background 0.15s, color 0.15s',
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = '#0B7A3E';
+            (e.currentTarget as HTMLButtonElement).style.color = 'white';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            (e.currentTarget as HTMLButtonElement).style.color = '#0B7A3E';
+          }}
+        >
+          📍 Near Me
+        </button>
+
         {/* Category buttons — exactly 4, square, matching design */}
         <div className={styles.chips}>
           {QUICK_CATEGORIES.map(({ label, Icon, q }) => (

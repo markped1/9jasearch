@@ -155,6 +155,7 @@ export async function GET(request: Request) {
     const attributes = searchParams.get('attributes')?.split(',').filter(Boolean) || [];
     const verified = searchParams.get('verified') === 'true';
     const hasDeals = searchParams.get('hasDeals') === 'true';
+    const openNow = searchParams.get('openNow') === 'true';
 
     try {
         // Build where conditions
@@ -206,6 +207,22 @@ export async function GET(request: Request) {
                 offers: {
                     some: { isActive: true }
                 }
+            });
+        }
+
+        // Open Now filter — Nigeria time is UTC+1
+        if (openNow) {
+            const nowUtc = new Date();
+            // Nigeria is UTC+1
+            const nowNigeria = new Date(nowUtc.getTime() + 60 * 60 * 1000);
+            const hours = nowNigeria.getUTCHours().toString().padStart(2, '0');
+            const minutes = nowNigeria.getUTCMinutes().toString().padStart(2, '0');
+            const currentTime = `${hours}:${minutes}`; // e.g. "14:30"
+
+            // Filter businesses where openingTime <= currentTime <= closingTime
+            whereConditions.push({
+                openingTime: { not: null, lte: currentTime },
+                closingTime: { not: null, gte: currentTime },
             });
         }
 

@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import {
     LayoutDashboard, Building2, MessageSquare, Star,
     Settings, Globe, MapPin, Phone, Clock, Save,
-    Loader2, AlertCircle, TrendingUp, Zap, CheckCircle2, Tag, Calendar, User
+    Loader2, AlertCircle, TrendingUp, Zap, CheckCircle2, Tag, Calendar, User,
+    Eye, PhoneCall, MessageCircle, MousePointerClick
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import ImageUploader from '@/components/business/ImageUploader';
@@ -17,6 +18,8 @@ export default function OwnerDashboard() {
     const [promoting, setPromoting] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [analytics, setAnalytics] = useState<any>(null);
+    const [analyticsLoading, setAnalyticsLoading] = useState(false);
 
     const { data: session } = useSession();
 
@@ -31,6 +34,18 @@ export default function OwnerDashboard() {
 
                 if (data.id) {
                     setBusiness(data);
+
+                    // Fetch analytics
+                    setAnalyticsLoading(true);
+                    try {
+                        const analyticsRes = await fetch(`/api/analytics?businessId=${data.id}&period=30d`);
+                        const analyticsData = await analyticsRes.json();
+                        setAnalytics(analyticsData);
+                    } catch {
+                        // silent fail
+                    } finally {
+                        setAnalyticsLoading(false);
+                    }
 
                     // Handle payment success from URL
                     const urlParams = new URLSearchParams(window.location.search);
@@ -214,6 +229,79 @@ export default function OwnerDashboard() {
                         </div>
                         <div className={styles.statTrend}>From {business.reviewCount} reviews</div>
                     </div>
+                </div>
+
+                {/* ── Analytics Section ── */}
+                <div className={styles.formCard} style={{ marginBottom: '24px' }}>
+                    <div className={styles.formHeader}>
+                        <TrendingUp size={24} color="#008751" />
+                        <h2>Analytics (Last 30 Days)</h2>
+                    </div>
+
+                    {analyticsLoading ? (
+                        <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>
+                            <Loader2 className="animate-spin" size={32} color="#008751" />
+                        </div>
+                    ) : analytics ? (
+                        <>
+                            {/* Stats row */}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+                                {[
+                                    { label: 'Page Views', value: analytics.stats.totalViews, icon: <Eye size={20} color="#008751" />, color: '#008751' },
+                                    { label: 'Call Clicks', value: analytics.stats.callClicks, icon: <PhoneCall size={20} color="#2563eb" />, color: '#2563eb' },
+                                    { label: 'WhatsApp Clicks', value: analytics.stats.whatsappClicks, icon: <MessageCircle size={20} color="#25D366" />, color: '#25D366' },
+                                    { label: 'Website Clicks', value: analytics.stats.websiteClicks, icon: <MousePointerClick size={20} color="#7c3aed" />, color: '#7c3aed' },
+                                ].map(({ label, value, icon, color }) => (
+                                    <div key={label} style={{ background: '#f9f9f9', borderRadius: '12px', padding: '16px', border: `1px solid ${color}22` }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                                            {icon}
+                                            <span style={{ fontSize: '12px', color: '#888', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{label}</span>
+                                        </div>
+                                        <div style={{ fontSize: '28px', fontWeight: '800', color }}>{value}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Views bar chart */}
+                            {analytics.dailyData && analytics.dailyData.length > 0 && (
+                                <div>
+                                    <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#333', marginBottom: '16px' }}>Views This Period</h3>
+                                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', height: '80px', padding: '0 4px' }}>
+                                        {(() => {
+                                            const maxViews = Math.max(...analytics.dailyData.map((d: any) => d.views), 1);
+                                            return analytics.dailyData.slice(-14).map((day: any) => (
+                                                <div
+                                                    key={day.date}
+                                                    title={`${day.date}: ${day.views} views`}
+                                                    style={{
+                                                        flex: 1,
+                                                        background: day.views > 0 ? '#008751' : '#e8e8e8',
+                                                        height: `${Math.max((day.views / maxViews) * 100, 4)}%`,
+                                                        borderRadius: '3px 3px 0 0',
+                                                        minWidth: '8px',
+                                                        transition: 'opacity 0.2s',
+                                                        cursor: 'default',
+                                                    }}
+                                                />
+                                            ));
+                                        })()}
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#aaa', marginTop: '4px', padding: '0 4px' }}>
+                                        <span>{analytics.dailyData.length > 0 ? analytics.dailyData[Math.max(0, analytics.dailyData.length - 14)]?.date?.slice(5) : ''}</span>
+                                        <span>Today</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {analytics.dailyData?.length === 0 && (
+                                <p style={{ color: '#888', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
+                                    No analytics data yet. Share your business profile to start tracking!
+                                </p>
+                            )}
+                        </>
+                    ) : (
+                        <p style={{ color: '#888', fontSize: '14px' }}>Could not load analytics data.</p>
+                    )}
                 </div>
 
                 <div className={styles.formCard}>

@@ -133,6 +133,7 @@ function SearchContent() {
   const [query, setQuery] = useState('');
   const [sortBy, setSortBy] = useState('relevance');
   const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [openNow, setOpenNow] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false);
 
@@ -152,6 +153,7 @@ function SearchContent() {
     let loc = searchParams.get('location') || '';
     const sort = searchParams.get('sortBy') || 'relevance';
     const ver = searchParams.get('verified') === 'true';
+    const open = searchParams.get('openNow') === 'true';
     const lat = searchParams.get('lat') || '';
     const lng = searchParams.get('lng') || '';
 
@@ -164,12 +166,13 @@ function SearchContent() {
     setQuery(display);
     setSortBy(sort);
     setVerifiedOnly(ver);
+    setOpenNow(open);
     setPage(1);
 
-    if (q || loc || (lat && lng)) runSearch(q, loc, sort, ver, lat, lng, display);
+    if (q || loc || (lat && lng)) runSearch(q, loc, sort, ver, open, lat, lng, display);
   }, [searchParams]);
 
-  const runSearch = async (q: string, loc: string, sort: string, verified: boolean, lat = '', lng = '', label = '') => {
+  const runSearch = async (q: string, loc: string, sort: string, verified: boolean, openNow: boolean, lat = '', lng = '', label = '') => {
     setLoading(true);
     setSearched(true);
     setResultLabel(label || q || loc || (lat ? 'near you' : ''));
@@ -179,6 +182,7 @@ function SearchContent() {
       if (loc) params.set('location', loc);
       if (sort !== 'relevance') params.set('sortBy', sort);
       if (verified) params.set('verified', 'true');
+      if (openNow) params.set('openNow', 'true');
       if (lat) params.set('lat', lat);
       if (lng) params.set('lng', lng);
       params.set('limit', '100'); // fetch more for pagination
@@ -200,6 +204,7 @@ function SearchContent() {
     if (city) params.set('location', city);
     if (sortBy !== 'relevance') params.set('sortBy', sortBy);
     if (verifiedOnly) params.set('verified', 'true');
+    if (openNow) params.set('openNow', 'true');
     router.push(`/search?${params.toString()}`);
   };
 
@@ -287,6 +292,10 @@ function SearchContent() {
                 <label className={styles.checkLabel}>
                   <input type="checkbox" checked={verifiedOnly} onChange={e => setVerifiedOnly(e.target.checked)} />
                   <CheckCircle size={14} color="#008751" /> Verified only
+                </label>
+                <label className={styles.checkLabel}>
+                  <input type="checkbox" checked={openNow} onChange={e => setOpenNow(e.target.checked)} />
+                  <Clock size={14} color="#008751" /> Open Now
                 </label>
               </div>
             )}

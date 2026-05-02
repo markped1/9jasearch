@@ -26,47 +26,42 @@ export async function POST(
     const { id } = await params;
     try {
         const body = await request.json();
-        const { rating, comment } = body;
+        const { rating, comment, guestName } = body;
 
         if (!rating || !comment) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        // Get default user for now (in production this would be from auth)
-        const defaultUser = await prisma.user.findFirst({
-            where: { email: 'community@eaglesearch.ng' }
-        });
+        // Determine the user: use guestName for anonymous reviews
+        let userId: string;
 
-        if (!defaultUser) {
-            // Create the community user if it doesn't exist
-            const newUser = await prisma.user.create({
+        if (guestName && guestName.trim()) {
+            // Anonymous review — create/find a guest user by a unique email
+            const guestEmail = `guest_${Date.now()}@9jasearch.ng`;
+            const guestUser = await prisma.user.create({
                 data: {
-                    email: 'community@eaglesearch.ng',
-                    name: 'Community Member',
+                    email: guestEmail,
+                    name: guestName.trim(),
                     role: 'USER'
                 }
             });
-
-            const review = await prisma.review.create({
-                data: {
-                    rating: Number(rating),
-                    comment,
-                    businessId: id,
-                    userId: newUser.id
-                }
+            userId = guestUser.id;
+        } else {
+            // Fall back to community user for backward compatibility
+            let communityUser = await prisma.user.findFirst({
+                where: { email: 'community@eaglesearch.ng' }
             });
 
-            const allReviews = await prisma.review.findMany({
-                where: { businessId: id },
-                select: { rating: true }
-            });
-            const avgRating = allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length;
-            await prisma.business.update({
-                where: { id },
-                data: { rating: avgRating, reviewCount: allReviews.length }
-            });
-
-            return NextResponse.json(review);
+            if (!communityUser) {
+                communityUser = await prisma.user.create({
+                    data: {
+                        email: 'community@eaglesearch.ng',
+                        name: 'Community Member',
+                        role: 'USER'
+                    }
+                });
+            }
+            userId = communityUser.id;
         }
 
         // Create the review
@@ -75,11 +70,11 @@ export async function POST(
                 rating: Number(rating),
                 comment,
                 businessId: id,
-                userId: defaultUser.id
+                userId
             }
         });
 
-        // Update business stats
+        // Update business rating stats
         const allReviews = await prisma.review.findMany({
             where: { businessId: id },
             select: { rating: true }
