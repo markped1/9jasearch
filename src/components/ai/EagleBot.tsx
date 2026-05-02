@@ -17,7 +17,7 @@ export default function EagleBot() {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'bot', text: 'Hi! I\'m 9jaBot 🤖 Looking for something? Just ask!' }
+        { role: 'bot', text: 'Hi! 👋 I\'m 9jaBot. Ask me to find any business in Nigeria — hotels, mechanics, restaurants, hospitals and more. Try: "recommend a hotel in Ikeja"' }
     ]);
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -116,10 +116,14 @@ export default function EagleBot() {
                             borderBottomRightRadius: msg.role === 'user' ? '2px' : '12px',
                             borderBottomLeftRadius: msg.role === 'bot' ? '2px' : '12px',
                             boxShadow: msg.role === 'bot' ? '0 2px 5px rgba(0,0,0,0.05)' : 'none',
-                            fontSize: '14px', lineHeight: '1.4'
-                        }}>
-                            {msg.text}
-                        </div>
+                            fontSize: '14px', lineHeight: '1.6', whiteSpace: 'pre-line'
+                        }}
+                        dangerouslySetInnerHTML={{
+                            __html: msg.text
+                                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                                .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" style="color:#008751;font-weight:600">$1</a>')
+                        }}
+                        />
 
                         {/* Render Results if any */}
                         {msg.type === 'results' && msg.results && (
@@ -165,6 +169,17 @@ export default function EagleBot() {
 
             {/* Input */}
             <div style={{ padding: '15px', borderTop: '1px solid #eee', background: 'white' }}>
+                {/* Quick suggestions — show only on first message */}
+                {messages.length === 1 && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
+                        {['Hotels in Lagos', 'Mechanic in Abuja', 'Hospital near me', 'Best restaurant Lekki'].map(s => (
+                            <button key={s} onClick={() => { setInput(s); }}
+                                style={{ padding: '5px 10px', borderRadius: '14px', border: '1px solid #008751', background: '#f0fdf4', color: '#008751', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
+                                {s}
+                            </button>
+                        ))}
+                    </div>
+                )}
                 <form
                     onSubmit={(e) => { e.preventDefault(); handleSend(); }}
                     style={{ display: 'flex', gap: '10px' }}
