@@ -300,7 +300,7 @@ function SearchContent() {
           <p className={styles.resultCount}>
             {allResults.length > 0
               ? `About ${allResults.length} result${allResults.length !== 1 ? 's' : ''} for "${resultLabel}" — Page ${page} of ${totalPages}`
-              : `No results for "${resultLabel}"`}
+              : `Showing related results — no exact match found for "${resultLabel}"`}
           </p>
         )}
 

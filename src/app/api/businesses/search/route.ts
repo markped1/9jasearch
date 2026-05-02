@@ -293,6 +293,73 @@ export async function GET(request: Request) {
         // Limit results
         businesses = businesses.slice(0, limit);
 
+        // ── Smart fallback — like Google, always return something ──
+        if (businesses.length === 0 && q) {
+            // Step 1: Try individual words from the query
+            const words = q.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+            if (words.length > 1) {
+                const wordConditions = words.flatMap(word => [
+                    { name: { contains: word, mode: 'insensitive' as const } },
+                    { category: { contains: word, mode: 'insensitive' as const } },
+                    { description: { contains: word, mode: 'insensitive' as const } },
+                    { tags: { contains: word, mode: 'insensitive' as const } },
+                ]);
+                const fallback1Where: any = { isActive: true, OR: wordConditions };
+                if (location) {
+                    fallback1Where.OR = wordConditions;
+                    const locTitle = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+                    businesses = await prisma.business.findMany({
+                        where: {
+                            AND: [
+                                { isActive: true },
+                                { OR: wordConditions },
+                                { OR: [
+                                    { city: { contains: location, mode: 'insensitive' as const } },
+                                    { city: { contains: locTitle } },
+                                    { state: { contains: location, mode: 'insensitive' as const } },
+                                ]}
+                            ]
+                        },
+                        take: limit,
+                        orderBy: [{ isFeatured: 'desc' }, { rating: 'desc' }]
+                    });
+                } else {
+                    businesses = await prisma.business.findMany({
+                        where: { AND: [{ isActive: true }, { OR: wordConditions }] },
+                        take: limit,
+                        orderBy: [{ isFeatured: 'desc' }, { rating: 'desc' }]
+                    });
+                }
+            }
+
+            // Step 2: If still nothing, return popular businesses in the same city
+            if (businesses.length === 0 && location) {
+                const locTitle = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+                businesses = await prisma.business.findMany({
+                    where: {
+                        AND: [
+                            { isActive: true },
+                            { OR: [
+                                { city: { contains: location, mode: 'insensitive' as const } },
+                                { city: { contains: locTitle } },
+                            ]}
+                        ]
+                    },
+                    take: limit,
+                    orderBy: [{ isFeatured: 'desc' }, { rating: 'desc' }, { reviewCount: 'desc' }]
+                });
+            }
+
+            // Step 3: If still nothing, return top-rated businesses nationally
+            if (businesses.length === 0) {
+                businesses = await prisma.business.findMany({
+                    where: { isActive: true },
+                    take: limit,
+                    orderBy: [{ isFeatured: 'desc' }, { rating: 'desc' }, { reviewCount: 'desc' }]
+                });
+            }
+        }
+
         return NextResponse.json(businesses);
     } catch (error) {
         console.error('Search API Error:', error);
