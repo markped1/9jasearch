@@ -12,9 +12,6 @@ export async function GET(request: Request) {
         const records = await prisma.kYCRecord.findMany({
             where: status === 'ALL' ? {} : { status },
             orderBy: { createdAt: 'desc' },
-            include: {
-                // We join manually since no relation defined — fetch business separately
-            }
         });
 
         // Enrich with business data and documents

@@ -1134,7 +1134,6 @@ export const CATEGORY_ALIASES: Record<string, string[]> = {
     "Fitness Trainers": ["fitness trainer", "personal trainer", "gym trainer"],
     "Bodyguards": ["bodyguard", "VIP protection", "personal security"],
     "Truck Drivers": ["truck driver", "lorry driver", "haulage driver"],
-    "Dispatch Riders": ["dispatch rider", "delivery rider", "bike courier", "okada delivery"],
     "Bakers": ["baker", "bread maker", "pastry chef", "confectioner"],
     "Caterers": ["caterer", "catering", "food service", "event food"],
     "Housekeepers": ["housekeeper", "house help", "domestic worker", "cleaner"],
