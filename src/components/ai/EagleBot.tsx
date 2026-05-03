@@ -231,7 +231,7 @@ export default function EagleBot() {
             {/* Quick suggestions */}
             {messages.length === 1 && (
                 <div style={{ padding: '8px 12px 0', background: 'white', display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                    {['Hotels Lagos', 'Mechanic Abuja', 'Hospital near me', 'Buy cement'].map(s => (
+                    {['Hotels Lagos', 'Mechanic Abuja', 'Register a business', 'Prices in Nigeria'].map(s => (
                         <button key={s} onClick={() => setInput(s)}
                             style={{ padding: '4px 9px', borderRadius: '12px', border: '1px solid #008751', background: '#f0fdf4', color: '#008751', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit' }}>
                             {s}

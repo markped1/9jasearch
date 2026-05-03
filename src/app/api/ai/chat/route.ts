@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getNigeriaKnowledge } from '@/lib/nigeriaKnowledge';
 
 export const dynamic = 'force-dynamic';
 
@@ -272,6 +273,12 @@ export async function POST(request: Request) {
 
     // ── Info / General questions ──────────────────────────────────
     if (intent === 'info') {
+      // First check Nigeria knowledge base
+      const knowledge = getNigeriaKnowledge(msg);
+      if (knowledge) {
+        return NextResponse.json({ text: knowledge, type: 'text' });
+      }
+
       // What is 9jaSearch?
       if (lower.includes('9jasearch') || lower.includes('this site') || lower.includes('this app') || lower.includes('this platform')) {
         return NextResponse.json({
@@ -306,7 +313,12 @@ export async function POST(request: Request) {
       });
     }
 
-    // ── Default fallback — try to search anyway ───────────────────
+    // ── Default fallback — try knowledge base then search ────────
+    const knowledge = getNigeriaKnowledge(msg);
+    if (knowledge) {
+      return NextResponse.json({ text: knowledge, type: 'text' });
+    }
+
     const businesses = await searchBusinesses(msg, city, category, 5);
     if (businesses.length > 0) {
       return NextResponse.json({
