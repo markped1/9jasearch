@@ -20,22 +20,22 @@ export default function EagleBot() {
         { role: 'bot', text: 'Hi! 👋 I\'m 9jaBot. Ask me to find any business in Nigeria — hotels, mechanics, restaurants, hospitals and more. Try: "recommend a hotel in Ikeja"' }
     ]);
     const [loading, setLoading] = useState(false);
-    const [bottomOffset, setBottomOffset] = useState(80);
+    const [bottomOffset, setBottomOffset] = useState(20);
+    const [chatWidth, setChatWidth] = useState(350);
+    const [chatMaxHeight, setChatMaxHeight] = useState(500);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Calculate correct bottom offset above mobile nav
+    // Calculate correct bottom offset above mobile nav — runs only on client
     useEffect(() => {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile) {
-            // Mobile nav is 54px + safe area. Add 10px gap.
-            const safeArea = parseInt(
-                getComputedStyle(document.documentElement)
-                    .getPropertyValue('--sat') || '0'
-            );
-            setBottomOffset(54 + safeArea + 16);
-        } else {
-            setBottomOffset(20);
-        }
+        const update = () => {
+            const isMobile = window.innerWidth <= 768;
+            setBottomOffset(isMobile ? 70 : 20);
+            setChatWidth(Math.min(350, window.innerWidth - 32));
+            setChatMaxHeight(window.innerHeight - (isMobile ? 70 : 20) - 80);
+        };
+        update();
+        window.addEventListener('resize', update);
+        return () => window.removeEventListener('resize', update);
     }, []);
 
     const scrollToBottom = () => {
