@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Bot, Send, X, Star } from 'lucide-react';
+import { Send, X, Star } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,6 +11,15 @@ interface Message {
     results?: any[];
     type?: 'text' | 'results';
 }
+
+const BUBBLE_MESSAGES = [
+    'Chat with me 😊',
+    'I can help! 🇳🇬',
+    'Find businesses near you 📍',
+    'Ask me anything! 💬',
+    'Hotels, mechanics, food... 🍽️',
+    'Search Naija. Find More. 🔍',
+];
 
 export default function EagleBot() {
     const pathname = usePathname();
@@ -23,6 +32,8 @@ export default function EagleBot() {
     const [bottomOffset, setBottomOffset] = useState(20);
     const [chatWidth, setChatWidth] = useState(350);
     const [chatMaxHeight, setChatMaxHeight] = useState(500);
+    const [bubbleIndex, setBubbleIndex] = useState(0);
+    const [showBubble, setShowBubble] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -36,6 +47,19 @@ export default function EagleBot() {
         window.addEventListener('resize', update);
         return () => window.removeEventListener('resize', update);
     }, []);
+
+    // Rotate bubble message every 10 seconds
+    useEffect(() => {
+        if (isOpen) return;
+        const interval = setInterval(() => {
+            setShowBubble(false);
+            setTimeout(() => {
+                setBubbleIndex(i => (i + 1) % BUBBLE_MESSAGES.length);
+                setShowBubble(true);
+            }, 400);
+        }, 10000);
+        return () => clearInterval(interval);
+    }, [isOpen]);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -73,16 +97,52 @@ export default function EagleBot() {
 
     if (!isOpen) {
         return (
-            <button onClick={() => setIsOpen(true)} style={{
-                ...fixedBase,
-                background: 'linear-gradient(135deg, #008751 0%, #006b3f 100%)',
-                color: 'white', border: 'none', borderRadius: '50%',
-                width: 56, height: 56,
-                boxShadow: '0 4px 15px rgba(0,0,0,0.3)', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-                <Bot size={28} />
-            </button>
+            <div style={{ ...fixedBase, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
+                {/* Animated typing bubble */}
+                <div
+                    onClick={() => setIsOpen(true)}
+                    style={{
+                        background: 'white',
+                        border: '1.5px solid #008751',
+                        borderRadius: '18px 18px 4px 18px',
+                        padding: '8px 14px',
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        color: '#008751',
+                        boxShadow: '0 2px 12px rgba(0,135,81,0.15)',
+                        whiteSpace: 'nowrap',
+                        opacity: showBubble ? 1 : 0,
+                        transform: showBubble ? 'translateY(0) scale(1)' : 'translateY(6px) scale(0.95)',
+                        transition: 'opacity 0.3s ease, transform 0.3s ease',
+                        cursor: 'pointer',
+                    }}
+                >
+                    {BUBBLE_MESSAGES[bubbleIndex]}
+                </div>
+
+                {/* Friendly emoji button */}
+                <button
+                    onClick={() => setIsOpen(true)}
+                    style={{
+                        background: 'linear-gradient(135deg, #008751 0%, #006b3f 100%)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: 58, height: 58,
+                        boxShadow: '0 4px 16px rgba(0,135,81,0.4)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '28px',
+                        transition: 'transform 0.2s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1)')}
+                    onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                    aria-label="Open 9jaBot"
+                >
+                    😊
+                </button>
+            </div>
         );
     }
 
@@ -97,14 +157,12 @@ export default function EagleBot() {
             display: 'flex', flexDirection: 'column', overflow: 'hidden'
         }}>
             {/* Header */}
-            <div style={{ padding: '12px 15px', background: '#008751', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+            <div style={{ padding: '12px 15px', background: 'linear-gradient(135deg, #008751 0%, #006b3f 100%)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ background: 'white', padding: '5px', borderRadius: '50%' }}>
-                        <Bot size={18} color="#008751" />
-                    </div>
+                    <div style={{ fontSize: '28px', lineHeight: 1 }}>😊</div>
                     <div>
                         <div style={{ fontWeight: '700', fontSize: '14px' }}>9jaBot</div>
-                        <div style={{ fontSize: '10px', opacity: 0.9 }}>AI Business Finder</div>
+                        <div style={{ fontSize: '10px', opacity: 0.9 }}>● Online · AI Business Finder</div>
                     </div>
                 </div>
                 <button onClick={() => setIsOpen(false)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', padding: '4px' }}>
@@ -116,6 +174,9 @@ export default function EagleBot() {
             <div style={{ flex: 1, padding: '12px', overflowY: 'auto', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {messages.map((msg, idx) => (
                     <div key={idx} style={{ alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
+                        {msg.role === 'bot' && (
+                            <div style={{ fontSize: '16px', marginBottom: '3px' }}>😊</div>
+                        )}
                         <div
                             style={{
                                 padding: '9px 13px', borderRadius: '12px',
@@ -155,8 +216,13 @@ export default function EagleBot() {
                     </div>
                 ))}
                 {loading && (
-                    <div style={{ alignSelf: 'flex-start', background: 'white', padding: '8px 13px', borderRadius: '12px', fontSize: '12px', color: '#666', fontStyle: 'italic' }}>
-                        Searching...
+                    <div style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <div style={{ fontSize: '16px' }}>😊</div>
+                        <div style={{ background: 'white', padding: '8px 13px', borderRadius: '12px', display: 'flex', gap: '4px', alignItems: 'center', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
+                            {[0, 0.2, 0.4].map((delay, i) => (
+                                <span key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#008751', display: 'inline-block', animation: `botBounce 1s ${delay}s infinite` }} />
+                            ))}
+                        </div>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
@@ -180,7 +246,7 @@ export default function EagleBot() {
                     <input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        placeholder="Ask me anything..."
+                        placeholder="Type a message..."
                         style={{ flex: 1, padding: '9px 12px', borderRadius: '20px', border: '1px solid #ddd', outline: 'none', fontSize: '13px' }}
                     />
                     <button type="submit" disabled={!input.trim()}
@@ -189,6 +255,13 @@ export default function EagleBot() {
                     </button>
                 </form>
             </div>
+
+            <style>{`
+                @keyframes botBounce {
+                    0%, 100% { transform: translateY(0); opacity: 0.4; }
+                    50% { transform: translateY(-4px); opacity: 1; }
+                }
+            `}</style>
         </div>
     );
 }
