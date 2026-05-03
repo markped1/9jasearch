@@ -7,11 +7,11 @@ import { hapticImpact } from '@/lib/capacitor';
 import styles from './Layout.module.css';
 
 const navItems = [
-    { label: 'Home', href: '/', icon: Home },
-    { label: 'Explore', href: '/#search', icon: Search },
-    { label: 'Add', href: '/add-business', icon: PlusSquare },
-    { label: 'Bookings', href: '/dashboard', icon: Calendar },
-    { label: 'Account', href: '/login', icon: User },
+    { label: 'Home',    href: '/',            icon: Home },
+    { label: 'Search',  href: '/search',      icon: Search },
+    { label: 'Add',     href: '/add-business',icon: PlusSquare },
+    { label: 'Deals',   href: '/deals',       icon: Calendar },
+    { label: 'Account', href: '/login',        icon: User },
 ];
 
 export default function MobileNav() {
