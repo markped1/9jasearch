@@ -547,6 +547,13 @@ Food prices have risen 200-400% since 2020 due to:
 export function getNigeriaKnowledge(query: string): string | null {
   const q = query.toLowerCase();
 
+  // Business registration — MUST be first (most specific)
+  if (/register.*business|cac|incorporate|company registration|business name|how to start|start.*business|setup.*business|set up.*business|open.*business|launch.*business|establish.*business|form.*company|create.*company|how do i.*business|how.*business in nigeria|steps.*business|begin.*business/.test(q)) {
+    return NIGERIA_KNOWLEDGE.businessRegistration;
+  }
+  if (/business categor|type of business|regulatory body|nafdac|ncc|ican|firs|vat registration/.test(q)) {
+    return NIGERIA_KNOWLEDGE.businessCategories;
+  }
   if (/price|cost|how much|expensive|cheap|inflation|naira|exchange rate/.test(q)) {
     return NIGERIA_KNOWLEDGE.prices;
   }
@@ -559,32 +566,27 @@ export function getNigeriaKnowledge(query: string): string | null {
   if (/oil|gas|crude|petroleum|refinery|dangote refinery|nnpc|niger delta/.test(q)) {
     return NIGERIA_KNOWLEDGE.assets;
   }
-  if (/natural resource|asset|mineral|gold|coal|iron|limestone|cocoa|cassava|yam|agriculture|farm/.test(q)) {
+  if (/natural resource|asset|mineral|gold|coal|iron|limestone/.test(q)) {
     return NIGERIA_KNOWLEDGE.assets;
   }
-  if (/industrial|factory|manufacturing|market|trade zone|free trade|onitsha|alaba|computer village|balogun/.test(q)) {
+  if (/industrial|factory|manufacturing|trade zone|free trade|onitsha|alaba|computer village|balogun/.test(q)) {
     return NIGERIA_KNOWLEDGE.industrialLocations;
   }
-  if (/register business|cac|incorporate|company registration|business name|how to start|start a business/.test(q)) {
-    return NIGERIA_KNOWLEDGE.businessRegistration;
-  }
-  if (/business categor|type of business|regulatory|nafdac|cbn|ncc|ican|firs|tax|vat/.test(q)) {
-    return NIGERIA_KNOWLEDGE.businessCategories;
-  }
-  if (/fintech|paystack|flutterwave|opay|palmpay|kuda|moniepoint|digital bank|mobile money|payment/.test(q)) {
+  if (/fintech|paystack|flutterwave|opay|palmpay|kuda|moniepoint|digital bank|mobile money/.test(q)) {
     return NIGERIA_KNOWLEDGE.fintech;
   }
-  if (/doing business|invest|investment|import|export|customs|duty|manufacturing|incentive/.test(q)) {
+  if (/doing business|invest|investment|import|export|customs|duty|manufacturing incentive/.test(q)) {
     return NIGERIA_KNOWLEDGE.doingBusiness;
   }
-  if (/state|lagos|abuja|kano|ibadan|enugu|port harcourt|kaduna|ogun|oyo|anambra|imo|rivers|delta/.test(q)) {
+  if (/agric|farm|crop|livestock|poultry|fish farm|cocoa|sesame|cashew/.test(q)) {
+    return NIGERIA_KNOWLEDGE.agriculture;
+  }
+  if (/state profile|what is.*known for|economy of.*state/.test(q)) {
     return NIGERIA_KNOWLEDGE.stateProfiles;
   }
-  if (/nigeria|nigerian|country|population|capital|currency|independence|nollywood|afrobeats/.test(q)) {
+  // General Nigeria — last resort only
+  if (/^(tell me about nigeria|what is nigeria|nigeria overview|about nigeria|nigeria facts)/.test(q)) {
     return NIGERIA_KNOWLEDGE.overview;
-  }
-  if (/agric|farm|crop|livestock|poultry|fish farm|cassava|yam|cocoa|sesame|cashew/.test(q)) {
-    return NIGERIA_KNOWLEDGE.agriculture;
   }
 
   return null;

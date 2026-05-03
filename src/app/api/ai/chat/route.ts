@@ -273,7 +273,7 @@ export async function POST(request: Request) {
 
     // ── Info / General questions ──────────────────────────────────
     if (intent === 'info') {
-      // First check Nigeria knowledge base
+      // Check Nigeria knowledge base FIRST with the full message
       const knowledge = getNigeriaKnowledge(msg);
       if (knowledge) {
         return NextResponse.json({ text: knowledge, type: 'text' });
