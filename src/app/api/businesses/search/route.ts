@@ -240,14 +240,11 @@ const KEYWORD_ALIASES: Record<string, string[]> = {
   'battery car':   ['Auto Parts & Accessories'],
 
   // Fuel & energy
-  'petrol':        ['Filling Stations & Petrol Stations'],
   'diesel':        ['Filling Stations & Petrol Stations', 'Petroleum Products'],
   'kerosene':      ['Petroleum Products', 'Gas & Cooking Fuel'],
-  'gas':           ['Gas & Cooking Fuel', 'LPG & CNG Stations'],
   'cooking gas':   ['Gas & Cooking Fuel'],
   'lpg':           ['LPG & CNG Stations', 'Gas & Cooking Fuel'],
   'solar panel':   ['Solar & Renewable Energy', 'Solar Panel Installation'],
-  'inverter':      ['Inverter & Battery Sales', 'Solar & Renewable Energy'],
 
   // Office & stationery
   'stationery':    ['Stationery & Art Supplies', 'Office Supplies & Stationery'],

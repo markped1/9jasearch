@@ -78,7 +78,7 @@ const CATEGORY_MAP: Record<string, string> = {
   'washing machine': 'Household Appliances', 'air conditioner': 'AC & Refrigeration Services',
   tyre: 'Tyre Services & Vulcanisers', tyres: 'Tyre Services & Vulcanisers',
   'spare parts': 'Car Spare Parts', 'spare part': 'Car Spare Parts',
-  petrol: 'Filling Stations & Petrol Stations', diesel: 'Filling Stations & Petrol Stations',
+  diesel: 'Filling Stations & Petrol Stations',
   gas: 'Gas & Cooking Fuel', 'cooking gas': 'Gas & Cooking Fuel',
   'solar panel': 'Solar & Renewable Energy', inverter: 'Inverter & Battery Sales',
   stationery: 'Stationery & Art Supplies', book: 'Bookshops', books: 'Bookshops',
