@@ -367,31 +367,26 @@ export async function GET(request: Request) {
         const whereConditions: any[] = [{ isActive: true }];
 
         // Query filter — expand keywords to category aliases
+        // mode: 'insensitive' required for PostgreSQL (Neon)
         if (q) {
             const terms = expandQuery(q);
             whereConditions.push({
                 OR: terms.flatMap(term => [
-                    { name: { contains: term } },
-                    { category: { contains: term } },
-                    { description: { contains: term } },
-                    { tags: { contains: term } },
+                    { name: { contains: term, mode: 'insensitive' as const } },
+                    { category: { contains: term, mode: 'insensitive' as const } },
+                    { description: { contains: term, mode: 'insensitive' as const } },
+                    { tags: { contains: term, mode: 'insensitive' as const } },
                 ])
             });
         }
 
-        // Text Location filter (ignored if using lat/lng)
-        // SQLite LIKE is case-insensitive for ASCII — normalise to title case
+        // Location filter — mode: 'insensitive' for PostgreSQL
         if (location && (!lat || !lng)) {
-            const locTitle = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
-            const locLower = location.toLowerCase();
             whereConditions.push({
                 OR: [
-                    { city: { contains: location } },
-                    { city: { contains: locTitle } },
-                    { city: { contains: locLower } },
-                    { state: { contains: location } },
-                    { state: { contains: locTitle } },
-                    { address: { contains: location } },
+                    { city: { contains: location, mode: 'insensitive' as const } },
+                    { state: { contains: location, mode: 'insensitive' as const } },
+                    { address: { contains: location, mode: 'insensitive' as const } },
                 ]
             });
         }

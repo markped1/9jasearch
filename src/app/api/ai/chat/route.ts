@@ -132,20 +132,20 @@ async function searchBusinesses(query: string, city: string | null, category: st
   const conditions: any[] = [];
 
   if (category) {
-    conditions.push({ category: { contains: category } });
+    conditions.push({ category: { contains: category, mode: 'insensitive' } });
   }
   if (query && query.length > 2) {
     conditions.push(
-      { name: { contains: query } },
-      { category: { contains: query } },
-      { description: { contains: query } },
-      { tags: { contains: query } }
+      { name: { contains: query, mode: 'insensitive' } },
+      { category: { contains: query, mode: 'insensitive' } },
+      { description: { contains: query, mode: 'insensitive' } },
+      { tags: { contains: query, mode: 'insensitive' } }
     );
   }
   if (conditions.length > 0) where.OR = conditions;
 
   if (city) {
-    where.city = { contains: city };
+    where.city = { contains: city, mode: 'insensitive' };
   }
 
   return prisma.business.findMany({
